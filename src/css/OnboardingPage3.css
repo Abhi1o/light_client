@@ -1,0 +1,120 @@
+/* Login.css */
+
+.login-container {
+    display: flex;
+    height: 100vh;
+    background-color: #f0f4f8;
+  }
+  
+  .left-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e3f4d4;
+  }
+  
+  .left-section img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .right-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .logo {
+    margin-bottom: 20px;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
+  }
+  
+  .password-container {
+    position: relative;
+  }
+  
+  .password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .create-account-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #7ac142;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .social-login {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+  }
+  
+  .social-button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .google {
+    background-color: #db4437;
+  }
+  
+  .microsoft {
+    background-color: #0078d4;
+  }
+  
+  .github {
+    background-color: #333;
+  }
+  
+  p {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  a {
+    color: #7ac142;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  

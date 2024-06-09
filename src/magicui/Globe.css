@@ -1,0 +1,29 @@
+/* Globe.css */
+.globe-container {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 100%;
+    max-width: 600px;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .globe-canvas {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    contain: layout paint size;
+  }
+  
+  .globe-canvas.grabbing {
+    cursor: grabbing;
+  }
+  
+  .globe-canvas.grab {
+    cursor: grab;
+  }
+  

@@ -7,6 +7,7 @@ const navbar = () => {
         {/* navbar  */}
         <ul className='navbar-list'>
             <Link to ="/"><li>Dashboard</li></Link>
+            <Link to ="/chatapp"><li>ChatApp</li></Link>
             <li>About</li>
             <li>Contact</li>
             <li>Services</li>

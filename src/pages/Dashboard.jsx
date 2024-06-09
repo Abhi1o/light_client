@@ -1,13 +1,58 @@
 import React, { useEffect, useState } from "react";
 import "../css/dashboard.css";
+import 'chart.js/auto';
 import { MdEventNote } from "react-icons/md";
 import { IoMicOutline } from "react-icons/io5";
 import { FiEdit3 } from "react-icons/fi";
 import { FaArrowTrendDown } from "react-icons/fa6";
 import { IoMdTrendingUp } from "react-icons/io";
 import { IoLockClosed } from "react-icons/io5";
+import { LuClock3 } from "react-icons/lu";
+import { VscGraph } from "react-icons/vsc";
+import { PiCornersIn } from "react-icons/pi";
+import { FiSearch } from "react-icons/fi";
+import { BiFilterAlt } from "react-icons/bi";
+import { PiDotsThreeVerticalBold } from "react-icons/pi";
+import { Line } from 'react-chartjs-2'
+import { RiStockLine } from "react-icons/ri";
 const Dashboard = () => {
-    const totalIncome = 23194.8;
+
+  const [chartData, setChartData] = useState({});
+  const [price, setPrice] = useState(16073.49);
+  const [percentageChange, setPercentageChange] = useState(9.3);
+
+  useEffect(() => {
+    const fetchStockData = () => {
+      // Fetch the data from an API (dummy data used here)
+      const newData = Array.from({ length: 10 }, () => Math.floor(Math.random() * 1) + 150);
+      const newPrice = newData[newData.length - 1];
+      const newPercentageChange = ((newPrice - price) / price) * 100;
+
+      setChartData({
+        labels: Array.from({ length: newData.length }, (_, i) => i + 1),
+        datasets: [
+          {
+            label: 'Stock Price',
+            data: newData,
+            borderColor: 'rgba(255, 99, 132, 1)',
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            fill: false,
+            tension: 0.4,
+          },
+        ],
+      });
+
+      setPrice(newPrice.toFixed(2));
+      setPercentageChange(newPercentageChange.toFixed(2));
+    };
+
+    fetchStockData();
+    const interval = setInterval(fetchStockData, 5000);
+
+    return () => clearInterval(interval);
+  }, [price]);
+
+  const totalIncome = 23194.8;
   const totalPaid = 8145.2;
   const [currentDate, setCurrentDate] = useState(new Date());
   const [daysInMonth, setDaysInMonth] = useState([]);
@@ -21,8 +66,6 @@ const Dashboard = () => {
   };
 
   const { day, month, dayName } = getCurrentDate();
-
-  
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -43,6 +86,30 @@ const Dashboard = () => {
   const hours = currentDate.getHours();
   const minutes = currentDate.getMinutes();
 
+  const [year, setYear] = useState(2023);
+  const profitData = {
+    2023: [
+      { amount: '$4K', size: 'smallest' },
+      { amount: '$6.8K', size: 'smaller' },
+      { amount: '$9.3K', size: 'small' },
+      { amount: '$14K', size: 'large' }
+    ],
+    2022: [
+      { amount: '$3K', size: 'smallest' },
+      { amount: '$5.8K', size: 'smaller' },
+      { amount: '$8.3K', size: 'small' },
+      { amount: '$12K', size: 'large' }
+    ],
+    2021: [
+      { amount: '$2K', size: 'smallest' },
+      { amount: '$4.8K', size: 'smaller' },
+      { amount: '$7.3K', size: 'small' },
+      { amount: '$10K', size: 'large' }
+    ]
+  };
+  const profits = profitData[year];
+
+  
   return (
     <div className="container">
       {/* hero section  */}
@@ -81,7 +148,7 @@ const Dashboard = () => {
       </div>
       <div className="grid">
         {/* Visa card  */}
-        <div className="card">
+        <div className="card item1">
           <div className="card-buttom-body">
             <div className="card-top-body">
               <div className="card-header">
@@ -118,7 +185,7 @@ const Dashboard = () => {
           </div>
         </div>
         {/* income card  */}
-        <div className="card">
+        <div className="card item2">
           <div className="card-buttom-body">
             <div className="card-top-body">
               <div className="card-header">
@@ -176,8 +243,8 @@ const Dashboard = () => {
           </div>
         </div>
         {/* system lock  */}
-        <div className="card" style={{ width: "120px" }}>
-          <div className="card-container">
+        <div className="card item3">
+          <div className="lock-card-container">
             <div className="lock-circle-icon">
               <i className="lock-icon">
                 <IoLockClosed fontSize="19px" />
@@ -196,10 +263,12 @@ const Dashboard = () => {
         </div>
 
         {/* day count  */}
-        <div className="card" style={{ width: "150px" }}>
+        <div className="card item4">
           <div className="calendar-card">
-            <div className="circle-icon">
-              <i className="clock-icon">&#x1F550;</i>
+            <div className="calendar-circle-icon">
+              <i className="clock-icon">
+                <LuClock3 fontSize="15px" />
+              </i>
             </div>
             <div className="date-info">
               <h2>{completedDays} Days</h2>
@@ -220,45 +289,204 @@ const Dashboard = () => {
           </div>
         </div>
 
+        {/* Annual graph */}
+        <div className="card item5">
+          <div className="graph-card box-bg-grid">
+            <div className="circle-icon">
+              <i className="bar-chart-icon">
+                <VscGraph fontSize="15px" />
+              </i>
+            </div>
+            <div className="grid-background-box">
+              <div className="grid-background-box-items"></div>
+              <div className="grid-background-box-items"></div>
+              <div className="grid-background-box-items"></div>
+              <div className="grid-background-box-items"></div>
+              <div className="grid-background-box-items"></div>
+              <div className="grid-background-box-items"></div>
+              <div className="grid-background-box-items"></div>
+              <div className="grid-background-box-items"></div>
+              <div className="grid-background-box-items"></div>
+              <div className="grid-background-box-items"></div>
+              <div className="grid-background-box-items"></div>
+              <div className="grid-background-box-items"></div>
+              <div className="grid-background-box-items"></div>
+              <div className="grid-background-box-items"></div>
+              <div className="grid-background-box-items"></div>
+              <div className="grid-background-box-items"></div>
+              <div className="grid-background-box-items"></div>
+              <div className="grid-background-box-items"></div>
+              <div className="grid-background-box-items"></div>
+              <div className="grid-background-box-items"></div>
+              <div className="grid-background-box-items"></div>
+              
+            </div>
+            <div className="graph-content">
+              <div className="year-marker past-year">
+                <span>2023</span>
+                
+              </div><div className="drop-line past-line"></div>
+              <div className="year-marker current-year">
+                <span>2024</span>
+                
+              </div><div className="drop-line current-line"></div>
+            </div>
+          </div>
+        </div>
         {/* Annual profits  */}
-        <div className="card">
-          <h6>Annual profits</h6>
-          <p>$14K</p>
-          <p>$9.3K</p>
-          <p>$6.8K</p>
-          <p>$4K</p>
+        <div className="card item6">
+        <div className="annual-card">
+      <div className="header">
+        <h2>Annual profits</h2>
+        <div className="year-selector">
+          <select value={year} onChange={(e) => setYear(parseInt(e.target.value))}>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
+          </select>
         </div>
-        <div className="card">
-          <h6>Activity manager</h6>
-          <h6>$43.20 USD</h6>
-          <div className="button-group">
-            <button className="team-button">Team</button>
-            <button className="insights-button">Insights</button>
+      </div>
+      <div className="profit-circles">
+        {profits.map((profit, index) => (
+          <div key={index} className={`circle ${profit.size}`}>
+            <span className="annual-profit-amount">{profit.amount}</span>
           </div>
-          <input
-            type="text"
-            className="activity-search-input"
-            placeholder="Search in activities..."
-          />
+        ))}
+      </div>
+    </div>
         </div>
-        <div className="card">
-          <h6>Main Stocks</h6>
-          <h6>$16,073.49</h6>
-          <p>+9.3%</p>
+{/* active management section  */}
+
+        <div className="card item7">
+        <div className="activity-manager">
+      <div className="top-bar">
+        <h2>Activity manager</h2>
+        
+        <div className="filter-icons">
+          <i className="filter-icon"><PiDotsThreeVerticalBold /></i>
+          <i className="filter-icon"><PiCornersIn /></i>
+          <i className="filter-icon"><BiFilterAlt fontSize="15px"/></i>
+          <i className="activity-manager-topbar-text">Filter</i>
         </div>
-        <div className="card center-card">
-          <h6>Wallet Verification</h6>
-          <button className="enable-button">Enable</button>
+      </div>
+      <div className="activity-manager-cards-middle">
+      <div className="search-bar">
+          <i className="activity-manager-search-icon"><FiSearch /></i>
+          <input type="text" placeholder="Search in activities ..." />
         </div>
-        <div className="card center-card">
-          <h6>How is your business management going?</h6>
-          <div className="emoji-buttons">
-            <button>😃</button>
-            <button>😊</button>
-            <button>😐</button>
-            <button>☹️</button>
-            <button>😠</button>
+        <div className="filter-buttons">
+          <button className="filter-button team">Team</button>
+                  <button className="filter-button insights">Insights</button>
+                  <button className="filter-button today">Today</button>
+          
+        </div>
+      </div>
+      <div className="activity-manager-cards">
+        <div className="activity-manager-card">
+          <div className="activity-manager-card-content">
+           <h3> <span className="activity-manager-card-content-span"> $43.20</span> USD</h3>
+            <div className="activity-manager-chart">
+            <div className="activity-manager-bar "></div>
+              <div className="activity-manager-bar"></div>
+              <div className="activity-manager-bar"></div>
+              <div className="activity-manager-bar"></div>
+              <div className="activity-manager-bar"></div>
+              <div className="activity-manager-bar"></div>
+              <div className="activity-manager-bar"></div>
+              <div className="activity-manager-bar"></div>
+              <div className="activity-manager-bar"></div>
+              <div className="activity-manager-bar"></div>
+              <div className="activity-manager-bar"></div>
+              <div className="activity-manager-bar"></div>
+              <div className="activity-manager-bar"></div>
+              <div className="activity-manager-bar"></div>
+              <div className="activity-manager-bar"></div>
+            </div>
           </div>
+        </div>
+        {/* manager-plans  */}
+        {/* <div className="activity-manager-card">
+          <div className="activity-manager-card-content">
+            <h3>Business plans</h3>
+            <div className="activity-manager-plans">
+              <button>Bank loans</button>
+              <button>Accounting</button>
+              <button>HR management</button>
+            </div>
+          </div>
+        </div> */}
+        <div className="activity-manager-card">
+          <div className="activity-manager-card-content wallet-card-text">
+            <h3>Wallet Verification</h3>
+            <p>Enable 2-step verification to secure your wallet.</p>
+            <button className="wallet-card-enable-button">Enable</button>
+          </div>
+        </div>
+      </div>
+    </div>
+        </div>
+{/* stock  */}
+        <div className="card item8">
+        <div className="stock-card">
+      <div className="icon">
+        <i className="stock-icon"><RiStockLine fontSize="15px" /></i>
+      </div>
+      <div className="price">
+        <span className="currency">$</span>
+        <span className="amount">{price}</span>
+      </div>
+      <div className="chart">
+        {/* <Line 
+          data={chartData} 
+          options={{ 
+            responsive: true, 
+            maintainAspectRatio: false, 
+            plugins: { 
+              legend: { display: false } 
+            }, 
+            scales: { 
+              x: { 
+                display: false 
+              }, 
+              y: { 
+                display: false 
+              } 
+            } 
+          }} 
+        /> */}
+      </div>
+      <div className="details">
+        <h3>Main Stocks</h3>
+        <p>Extended & Limited</p>
+        <div className={`percentage ${percentageChange >= 0 ? 'positive' : 'negative'}`}>
+          {percentageChange >= 0 ? '+' : ''}{percentageChange}%
+        </div>
+      </div>
+    </div>
+        </div>
+        
+        <div className="card item9">
+        <div className="review-card">
+      <div className="card-header">
+        <div className="dots">
+          <span className="dot"></span>
+          <span className="dot"></span>
+          <span className="dot active"></span>
+        </div>
+        <button className="close-btn">&times;</button>
+      </div>
+      <div className="card-content">
+        <h3>Review rating</h3>
+        <p>How is your business management going?</p>
+        {/* <div className="rating-options">
+          <span className="rating">🙁</span>
+          <span className="rating">😕</span>
+          <span className="rating">😐</span>
+          <span className="rating">🙂</span>
+          <span className="rating">😀</span>
+        </div> */}
+      </div>
+    </div>
         </div>
       </div>
     </div>
