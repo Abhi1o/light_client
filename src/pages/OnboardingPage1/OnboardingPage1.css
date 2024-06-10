@@ -1,4 +1,4 @@
-/* .onboarding-container {
+.onboarding-container {
   display: flex;
   height: 100vh;
   background-color: #f5f5f5;
@@ -70,7 +70,7 @@ h2 {
 
 .onboarding-button:hover {
   background-color: #0056b3;
-} */
+}
 
 .onboarding-right {
   position: relative;

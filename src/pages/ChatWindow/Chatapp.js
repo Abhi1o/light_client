@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../css/Chatapp.css";
+import "./Chatapp.css";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { BiSend } from "react-icons/bi";

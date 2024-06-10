@@ -1,8 +1,8 @@
 import React,{useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import Globe from '../magicui/globe';   // Ensure the path is correct
+import Globe from '../../magicui/globe';   // Ensure the path is correct
 // import '../css/OnboardingPage1.css'; 
-import '../css/OnboardingPage2.css' // Import the CSS file
+import './OnboardingPage2.css' // Import the CSS file
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';

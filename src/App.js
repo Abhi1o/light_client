@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import {BrowserRouter,Routes, Route,Navigate} from "react-router-dom"
 import Navbar from './pages/navbar';
-import Dashboard from './pages/Dashboard';
-import Chatapp from './pages/Chatapp';
-import OnboardingPage1 from './pages/OnboardingPage1';
-import OnboardingPage2 from './pages/OnboardingPage2';
-import OnboardingPage3 from './pages/OnboardingPage3';
+import Dashboard from './pages/Dashboard/Dashboard';
+import Chatapp from './pages/ChatWindow/Chatapp';
+import OnboardingPage1 from './pages/OnboardingPage1/OnboardingPage1';
+import OnboardingPage2 from './pages/OnboardingPage2/OnboardingPage2';
+import OnboardingPage3 from './pages/Onboardingpage3/OnboardingPage3';
 import CreateWallet from './pages/CreateWallet';
+import { OrbitingCirclesDemo } from './magicui/loadingPage';
+import OrbitingCircles from './magicui/orbiting-circles';
 
 // const RootApp = () => {
 //   const [isOnboardingComplete, setIsOnboardingComplete] = useState(false);
@@ -105,6 +107,9 @@ function App() {
           <Route path="/Onboarding2" element={<OnboardingPage2/>} />
           <Route path="/Onboarding3" element={<OnboardingPage3/>} />
           <Route path="/CreateWallet" element={<CreateWallet/>} />
+          <Route path="/OrbitCircle" element={ <OrbitingCirclesDemo/>} />
+          <Route path="/Orbitdemo" element={<OrbitingCircles/>} />
+          
           {/* <Route path="*" element={<NotFound />} /> */}
 
           {/* <Route path="/about" element={<About />} />

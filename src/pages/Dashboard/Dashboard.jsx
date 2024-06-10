@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../css/dashboard.css";
+import "./dashboard.css";
 import 'chart.js/auto';
 import { MdEventNote } from "react-icons/md";
 import { IoMicOutline } from "react-icons/io5";
