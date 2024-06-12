@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Wallet, HDNodeWallet } from 'ethers';
 import CryptoJS from 'crypto-js';
 import { Link, useNavigate } from 'react-router-dom';
-import './OnboardingPage3.scss';
+import './Wallet.scss';
 import Encryption from "../../Assets/Image/Encryption.gif";
 
-const OnboardingPage3 = ({ onNext }) => {
+const CreateWallet = ({ onNext }) => {
   const [mnemonic, setMnemonic] = useState('');
   const [password, setPassword] = useState('');
   const [encryptedPrivateKey, setEncryptedPrivateKey] = useState('');
@@ -127,4 +127,4 @@ const OnboardingPage3 = ({ onNext }) => {
   );
 };
 
-export default OnboardingPage3;
+export default CreateWallet;
