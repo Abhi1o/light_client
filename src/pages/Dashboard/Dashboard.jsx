@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./dashboard.css";
+import "./Dashboard.css";
 import 'chart.js/auto';
 import { MdEventNote } from "react-icons/md";
 import { IoMicOutline } from "react-icons/io5";
@@ -16,41 +16,53 @@ import { PiDotsThreeVerticalBold } from "react-icons/pi";
 import { Line } from 'react-chartjs-2'
 import { RiStockLine } from "react-icons/ri";
 const Dashboard = () => {
+  const data = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July',"Aug","Sept","Oct","Nov",],
+    datasets: [
+      {
+        label: 'Stock Price',
+        backgroundColor: 'rgba(75,192,192,0.4)',
+        borderColor: 'rgba(0, 255, 21,1)',
+        data: [65, 59, 80, 30, 56, 90, 50,90,40,70,80],
+        fill: false,
+      tension: 0.4,
+      },
+    ],
+  };
+  // const [chartData, setChartData] = useState({});
+  // const [price, setPrice] = useState(16073.49);
+  // const [percentageChange, setPercentageChange] = useState(9.3);
 
-  const [chartData, setChartData] = useState({});
-  const [price, setPrice] = useState(16073.49);
-  const [percentageChange, setPercentageChange] = useState(9.3);
+  // useEffect(() => {
+  //   const fetchStockData = () => {
+  //     // Fetch the data from an API (dummy data used here)
+  //     const newData = Array.from({ length: 10 }, () => Math.floor(Math.random() * 1) + 150);
+  //     const newPrice = newData[newData.length - 1];
+  //     const newPercentageChange = ((newPrice - price) / price) * 100;
 
-  useEffect(() => {
-    const fetchStockData = () => {
-      // Fetch the data from an API (dummy data used here)
-      const newData = Array.from({ length: 10 }, () => Math.floor(Math.random() * 1) + 150);
-      const newPrice = newData[newData.length - 1];
-      const newPercentageChange = ((newPrice - price) / price) * 100;
+  //     setChartData({
+  //       labels: Array.from({ length: newData.length }, (_, i) => i + 1),
+  //       datasets: [
+  //         {
+  //           label: 'Stock Price',
+  //           data: newData,
+  //           borderColor: 'rgba(255, 99, 132, 1)',
+  //           backgroundColor: 'rgba(255, 99, 132, 0.2)',
+  //           fill: false,
+  //           tension: 0.4,
+  //         },
+  //       ],
+  //     });
 
-      setChartData({
-        labels: Array.from({ length: newData.length }, (_, i) => i + 1),
-        datasets: [
-          {
-            label: 'Stock Price',
-            data: newData,
-            borderColor: 'rgba(255, 99, 132, 1)',
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            fill: false,
-            tension: 0.4,
-          },
-        ],
-      });
+  //     setPrice(newPrice.toFixed(2));
+  //     setPercentageChange(newPercentageChange.toFixed(2));
+  //   };
 
-      setPrice(newPrice.toFixed(2));
-      setPercentageChange(newPercentageChange.toFixed(2));
-    };
+  //   fetchStockData();
+  //   const interval = setInterval(fetchStockData, 5000);
 
-    fetchStockData();
-    const interval = setInterval(fetchStockData, 5000);
-
-    return () => clearInterval(interval);
-  }, [price]);
+  //   return () => clearInterval(interval);
+  // }, [price]);
 
   const totalIncome = 23194.8;
   const totalPaid = 8145.2;
@@ -433,11 +445,11 @@ const Dashboard = () => {
       </div>
       <div className="price">
         <span className="currency">$</span>
-        <span className="amount">{price}</span>
+        <span className="amount">1500.00</span>
       </div>
       <div className="chart">
-        {/* <Line 
-          data={chartData} 
+        <Line className="canvas"
+          data={data} 
           options={{ 
             responsive: true, 
             maintainAspectRatio: false, 
@@ -453,14 +465,14 @@ const Dashboard = () => {
               } 
             } 
           }} 
-        /> */}
+        />
       </div>
       <div className="details">
         <h3>Main Stocks</h3>
         <p>Extended & Limited</p>
-        <div className={`percentage ${percentageChange >= 0 ? 'positive' : 'negative'}`}>
+        {/* <div className={`percentage ${percentageChange >= 0 ? 'positive' : 'negative'}`}>
           {percentageChange >= 0 ? '+' : ''}{percentageChange}%
-        </div>
+        </div> */}
       </div>
     </div>
         </div>

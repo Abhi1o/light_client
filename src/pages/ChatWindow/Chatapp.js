@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Chatapp.css";
+import "./Chatapp.scss";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { BiSend } from "react-icons/bi";
@@ -12,7 +12,7 @@ const Sidebar = ({
   expandedCategories,
 }) => {
   return (
-    <div className="sidebar">
+    <div className="chat-sidebar">
       <h2>Chats</h2>
       <button className="new-chat-button" onClick={onStartNewChat}>
         New Chat
@@ -24,8 +24,8 @@ const Sidebar = ({
             onClick={() => toggleCategory(dateCategory)}
           >
             <i className="arrow-icon">
-              <MdKeyboardArrowDown />
-              <MdOutlineKeyboardArrowRight />
+              {/* <MdKeyboardArrowDown />
+              <MdOutlineKeyboardArrowRight /> */}
             </i>
             {dateCategory}
           </h6>
@@ -69,28 +69,59 @@ const Sidebar = ({
 const ChatWindow = ({ chat }) => {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [response, setResponse] = useState('');
 
-  const handleSend = () => {
-    if (inputValue.trim()) {
-      const userMessage = {
-        text: inputValue,
-        sender: "user",
-        timestamp: new Date(),
-      };
-      setMessages([...messages, userMessage]);
-      setInputValue("");
+  // const handleSend = () => {
+  //   if (inputValue.trim()) {
+  //     const userMessage = {
+  //       text: inputValue,
+  //       sender: "user",
+  //       timestamp: new Date(),
+  //     };
+  //     setMessages([...messages, userMessage]);
+  //     setInputValue("");
 
-      // apply bot settings
-      setTimeout(() => {
-        const botReply = {
-          text: "This is a bot reply to: " + inputValue,
-          sender: "bot",
-          timestamp: new Date(),
-        };
-        setMessages((prevMessages) => [...prevMessages, botReply]);
-      }, 1000);
+  //     // apply bot settings
+  //     setTimeout(() => {
+  //       const botReply = {
+  //         text: "This is a bot reply to: " + inputValue,
+  //         sender: "bot",
+  //         timestamp: new Date(),
+  //       };
+  //       setMessages((prevMessages) => [...prevMessages, botReply]);
+  //     }, 1000);
+  //   }
+  // };
+
+  const handleSend = async () => {
+    const requestBody = {
+      user_input: "send 1 ATOM from my address to cosmos12i203i1203i02i013 address index 12",
+      seed_phrase: "law grab theory better athlete submit awkward hawk state wedding wave monkey audit blame fury wood tag rent furnace exotic jeans drift destroy style"
+    };
+
+    try {
+      const res = await fetch('https://silver-worlds-press.loca.lt/generate/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+        credentials: 'include' 
+      });
+      if (!res.ok) {
+        throw new Error(`Error: ${res.statusText}`);
+      }
+
+      const data = await res.json();
+      setResponse(data.result);
+    } catch (error) {
+      console.error('Error:', error);
+      setResponse('Error occurred');
     }
   };
+
+
 
   return (
     <div className="chat-container">
@@ -122,29 +153,29 @@ const ChatWindow = ({ chat }) => {
   );
 };
 
-const NewChatForm = ({ onAddChat }) => {
-  const [chatTitle, setChatTitle] = useState("");
+// const NewChatForm = ({ onAddChat }) => {
+//   const [chatTitle, setChatTitle] = useState("");
 
-  const handleAddChat = () => {
-    if (chatTitle) {
-      onAddChat({ title: chatTitle, date: "Today" });
-      setChatTitle("");
-    }
-  };
+//   const handleAddChat = () => {
+//     if (chatTitle) {
+//       onAddChat({ title: chatTitle, date: "Today" });
+//       setChatTitle("");
+//     }
+//   };
 
-  return (
-    <div className="chat-window">
-      <h2>Start a New Chat</h2>
-      <input
-        type="text"
-        value={chatTitle}
-        onChange={(e) => setChatTitle(e.target.value)}
-        placeholder="Enter chat title"
-      />
-      <button onClick={handleAddChat}>Start Chat</button>
-    </div>
-  );
-};
+//   return (
+//     <div className="chat-window">
+//       <h2>Start a New Chat</h2>
+//       <input
+//         type="text"
+//         value={chatTitle}
+//         onChange={(e) => setChatTitle(e.target.value)}
+//         placeholder="Enter chat title"
+//       />
+//       <button onClick={handleAddChat}>Start Chat</button>
+//     </div>
+//   );
+// };
 
 const Chatapp = () => {
   const [chats, setChats] = useState([
@@ -200,7 +231,7 @@ const Chatapp = () => {
         expandedCategories={expandedCategories}
       />
       {isNewChat ? (
-        <NewChatForm onAddChat={addChat} />
+        <ChatWindow onAddChat={addChat} />
       ) : (
         <ChatWindow chat={currentChat} />
       )}

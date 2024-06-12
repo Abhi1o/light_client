@@ -1,124 +1,104 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
-import {BrowserRouter,Routes, Route,Navigate} from "react-router-dom"
-import Navbar from './pages/navbar';
-import Dashboard from './pages/Dashboard/Dashboard';
-import Chatapp from './pages/ChatWindow/Chatapp';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import OnboardingPage1 from './pages/OnboardingPage1/OnboardingPage1';
 import OnboardingPage2 from './pages/OnboardingPage2/OnboardingPage2';
-import OnboardingPage3 from './pages/Onboardingpage3/OnboardingPage3';
-import CreateWallet from './pages/CreateWallet';
-import { OrbitingCirclesDemo } from './magicui/loadingPage';
-import OrbitingCircles from './magicui/orbiting-circles';
+import OnboardingPage3 from './pages/OnboardingPage3/OnboardingPage3'; // Assuming CreateWallet is the updated OnboardingPage3
+import Sidebar from "./pages/Sidebar/Sidebar";
+import CreateWallet from './pages/CreateWallet/CreateWallet';
+import Home from "./pages/Dashboard/Dashboard";
+import TopNavbar from "./pages/TopNavbar/TopNavbar";
+import Chat from "./pages/ChatWindow/Chatapp";
+import Api from "./pages/ChatWindow/Api";
+import Settings from "./pages/Settings/Settings";
 
-// const RootApp = () => {
-//   const [isOnboardingComplete, setIsOnboardingComplete] = useState(false);
-//   const [onboardingStep, setOnboardingStep] = useState(1);
+import './App.css';
 
-//   useEffect(() => {
-//     const completedOnboarding = localStorage.getItem('onboardingComplete');
-//     if (completedOnboarding) {
-//       setIsOnboardingComplete(true);
-//     }
-//   }, []);
+const App = () => {
+  const [isOnboardingComplete, setIsOnboardingComplete] = useState(false);
+  const [onboardingStep, setOnboardingStep] = useState(1);
 
-//   const completeOnboarding = () => {
-//     setIsOnboardingComplete(true);
-//     localStorage.setItem('onboardingComplete', 'true');
-//   };
+  useEffect(() => {
+    const completedOnboarding = localStorage.getItem('onboardingComplete');
+    if (completedOnboarding) {
+      setIsOnboardingComplete(true);
+    }
+  }, []);
 
-//   const handleNextStep = () => {
-//     setOnboardingStep((prevStep) => {
-//       if (prevStep < 3) {
-//         const nextStep = prevStep + 1;
-//         return nextStep;
-//       } else {
-//         completeOnboarding();
-//         return prevStep;
-//       }
-//     });
-//   };
+  const completeOnboarding = () => {
+    setIsOnboardingComplete(true);
+    localStorage.setItem('onboardingComplete', 'true');
+  };
 
-//   return (
-    
-//       <Routes>
-//         {!isOnboardingComplete && (
-//           <>
-//             <Route path="/" element={<Navigate to={`/onboarding${onboardingStep}`} />} />
-//             <Route path="/onboarding1" element={<OnboardingPage1 onNext={handleNextStep} />} />
-//             <Route path="/onboarding2" element={<OnboardingPage2 onNext={handleNextStep} />} />
-//             <Route path="/onboarding3" element={<CreateWallet onNext={completeOnboarding} />} />
-//             <Route path="*" element={<Navigate to={`/onboarding${onboardingStep}`} />} />
-//           </>
-//         )}
-//         {isOnboardingComplete && (
-//           <>
-//             <Route path="/pin" element={<CreateWallet onNext={completeOnboarding} />} />
-//             <Route path="*" element={<MainApp />} />
-//           </>
-//         )}
-//       </Routes>
-    
-//   );
-// };
+  const handleNextStep = () => {
+    setOnboardingStep((prevStep) => {
+      if (prevStep < 3) {
+        const nextStep = prevStep + 1;
+        return nextStep;
+      } else {
+        completeOnboarding();
+        return prevStep;
+      }
+    });
+  };
 
-// const MainApp = () => {
-  
-
-  
-
-//   return (
-//     <div className="app-container">
-//       {/* <Sidebar isOpen={isSidebarOpen} onToggleSidebar={onToggleSidebar} /> */}
-//       <div className="main-content">
-//         {/* <TopNavbar toggleDarkMode={toggleDarkMode} /> */}
-//         <div className="content">
-//           <Routes>
-//             <Route path="/" element={<Dashboard />} />
-//             <Route path="/Chatapp" element={<Chatapp />} />
-//           </Routes>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// function App  ()  {
-//   return(
-//     <BrowserRouter>
-//       <RootApp />
-//     </BrowserRouter>
-//   )
-  
-// };
-
-// export default App;
-
-
-function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-      <Navbar/>
-        <Routes>
-          <Route path="/" element={<Dashboard/>} />
-          <Route path="/Chatapp" element={<Chatapp/>} />
-          <Route path="/Onboarding1" element={<OnboardingPage1/>} />
-          <Route path="/Onboarding2" element={<OnboardingPage2/>} />
-          <Route path="/Onboarding3" element={<OnboardingPage3/>} />
-          <Route path="/CreateWallet" element={<CreateWallet/>} />
-          <Route path="/OrbitCircle" element={ <OrbitingCirclesDemo/>} />
-          <Route path="/Orbitdemo" element={<OrbitingCircles/>} />
+    <Routes>
+      {!isOnboardingComplete && (
+        <>
+          <Route path="/" element={<Navigate to={`/onboarding${onboardingStep}`} />} />
+          <Route path="/onboarding1" element={<OnboardingPage1 onNext={handleNextStep} />} />
+          <Route path="/onboarding2" element={<OnboardingPage2 onNext={handleNextStep} />} />
+          <Route path="/onboarding3" element={<OnboardingPage3 onNext={completeOnboarding} />} />
+          <Route path="/createwallet" element={<CreateWallet onNext={completeOnboarding}/>} />
+          <Route path="/home" element={<Navigate to={`/onboarding${onboardingStep}`} />} />
           
-          {/* <Route path="*" element={<NotFound />} /> */}
+        </>
+      )}
+      {isOnboardingComplete && (
+        <>
+          <Route path="/pin" element={<OnboardingPage3 onNext={completeOnboarding} />} />
+          <Route path="*" element={<MainApp />} />
+        </>
+      )}
+    </Routes>
+  );
+};
 
-          {/* <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<NotFound />} /> */}
-        </Routes>
-      </BrowserRouter>
+const MainApp = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  const onToggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const toggleDarkMode = () => {
+    document.body.classList.toggle('dark');
+  };
+
+  return (
+    <div className="app-container">
+      <Sidebar isOpen={isSidebarOpen} onToggleSidebar={onToggleSidebar} />
+      <div className="main-content">
+        <TopNavbar toggleDarkMode={toggleDarkMode} />
+        <div className="content">
+          <Routes>
+            <Route path="/home" element={<Home />} />
+            <Route path="/chat" element={<Chat />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/api" element={<Api />} />
+
+            <Route path="/" element={<Navigate to="/home" />} />
+          </Routes>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
-export default App;
+const RootApp = () => (
+  <Router>
+    <App />
+  </Router>
+);
+
+export default RootApp;

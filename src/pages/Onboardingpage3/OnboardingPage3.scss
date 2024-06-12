@@ -1,0 +1,177 @@
+// Colors
+$primary-color: #7ac142;
+$background-overlay: rgba(0, 0, 0, 0.2);
+$background-color: #fcfeff;
+$border-color: #d3d3d3;
+$text-color: #666;
+$shadow-color: rgba(0, 0, 0, 0.1);
+
+// Sizes
+$border-radius: 25px;
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin button-style($bg-color, $text-color: white) {
+  background-color: $bg-color;
+  color: $text-color;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  padding: 15px 20px;
+  width: 280px !important;
+  margin-top: 20px;
+}
+
+@mixin input-style {
+  width: 280px !important;
+  padding: 15px 20px;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  font-size: 15px !important;
+  margin: 7px 0;
+}
+body {
+  font-family: "M PLUS Rounded 1c", sans-serif;
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+hr {
+  border: 1px solid $border-color;
+  width: 70%;
+  height: 2px;
+  margin: 0 auto;
+}
+.login-container {
+  position: relative;
+  height: 100vh;
+  background-image: url('../../Assets/Image/MCGZ3K9N_output_0\ \(1\).webp');
+  background-size: cover;
+  background-position: center;
+  @include flex-center;
+  justify-content: flex-start;
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $background-overlay;
+  }
+
+  .login-card {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    max-width: 550px;
+    padding: 20px;
+    background-color: white;
+    border-radius: $border-radius;
+    box-shadow: 0 4px 8px $shadow-color;
+    text-align: center;
+    margin-left: 50px;
+    right: 35px;
+    height: 92%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .Onboarding3-logo {
+      margin-bottom: 20px;
+      width: auto !important;
+      height: 250px;
+    }
+
+    h1 {
+      font-size: 45px;
+      color: $primary-color;
+      font-weight: 600;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      @include input-style;
+    }
+
+    .password-container {
+      position: relative;
+
+      .password-toggle {
+        position: absolute;
+        top: 50%;
+        right: 130px;
+        transform: translateY(-50%);
+        cursor: pointer;
+      }
+    }
+
+    .create-account-button {
+      @include button-style($primary-color);
+      
+    }
+    .finish{
+      @include button-style($primary-color);
+      background-color: #8e8e8e
+    }
+
+    .social-login {
+      @include flex-center;
+      gap: 10px;
+      margin: 20px 0 5px 0;
+      position: relative;
+
+      .social-button {
+        width: 280px;
+        height: 40px;
+        border: none;
+        border-radius: $border-radius;
+        cursor: pointer;
+        padding-left: 20px;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+
+        &.google {
+          background-color: $background-color;
+        }
+
+        &.microsoft {
+          background-color: #0078d4;
+        }
+
+        &.github {
+          background-color: #333;
+        }
+
+        .social-login-icon {
+          position: absolute;
+          top: 50%;
+          left: 190px;
+          transform: translate(-50%, -50%);
+          font-size: 20px;
+          line-height: 5px;
+        }
+      }
+    }
+
+    p {
+      margin: 40px 0px;
+      font-size: 14px;
+      color: $text-color;
+      background-color: #fff;
+
+      &.have-account-text {
+        margin: 10px 0px 70px 0px;
+      }
+    }
+  }
+}

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { ethers } from 'ethers'; // Importing ethers
+import { Wallet, HDNodeWallet } from 'ethers';
 import CryptoJS from 'crypto-js';
 import { useNavigate } from 'react-router-dom';
-import '../css/CreateWallet.css';
+import "./CreactWallet.css";
 
 const CreateWallet = ({ onNext }) => {
   const [mnemonic, setMnemonic] = useState('');
@@ -17,13 +17,13 @@ const CreateWallet = ({ onNext }) => {
   }, []);
 
   const generateWallet = () => {
-    const randomMnemonic = ethers.Wallet.createRandom().mnemonic.phrase;
+    const randomMnemonic = Wallet.createRandom().mnemonic.phrase;
     setMnemonic(randomMnemonic);
   };
 
   const encryptPrivateKey = () => {
     if (mnemonic && password) {
-      const wallet = ethers.Wallet.fromMnemonic(mnemonic);
+      const wallet = HDNodeWallet.fromMnemonic(mnemonic);
       const encrypted = CryptoJS.AES.encrypt(wallet.privateKey, password).toString();
       setEncryptedPrivateKey(encrypted);
       localStorage.setItem('encryptedPrivateKey', encrypted);

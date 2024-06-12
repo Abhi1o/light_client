@@ -1,40 +1,37 @@
 import React from 'react';
-import './OnboardingPage3.css';
-import { FcGoogle } from "react-icons/fc";
+import './OnboardingPage3.scss';
+
+import { Link, useNavigate } from 'react-router-dom';
 import loginEncryptions from "../../Assets/Image/cyber-security.webp";
+import Encryption from "../../Assets/Image/Encryption.gif";
 const OnboardingPage3 = ({ onNext }) => {
+
+  const navigate = useNavigate();
+
+  const handleContinue = () => {
+    onNext();
+    navigate('/home');
+  };
   return (
     <div className="login-container">
     <div className="overlay"></div>
     <div className="login-card">
-      <img src={loginEncryptions} alt="Logo" className="logo" />
+      <img src={Encryption} alt="Logo" className="Onboarding3-logo" />
       
-      <button className="create-account-button">Create a new Wallet </button>
+      <Link to="/createwallet"><button className="create-account-button">Create a new Wallet </button></Link>
       <button className="create-account-button">Import an existing Wallet</button>
       
       
       <p className='have-account-text'>
         Connect Hardware <a href="/login">Wallet</a>
       </p>
-      {/* <p>
-      &#169; Light 2024 {' '}
-        <a href="/terms">All right reserved</a> {' '}
-        .
-      </p> */}
+      <button className="create-account-button finish" onClick={handleContinue}>Finish</button>
+      
       
     </div>
   
 
-      {/* <div className="onboarding-content">
-        <h1>Secure Your Wallet</h1>
-        <p>Set up security features to protect your wallet:</p>
-        <ul>
-          <li>Set a PIN code</li>
-          <li>Enable biometric authentication</li>
-          <li>Configure 2-factor authentication (2FA)</li>
-        </ul>
-        <button onClick={onNext}>Finish</button>
-      </div> */}
+      
     </div>
   );
 };

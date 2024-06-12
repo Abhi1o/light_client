@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "-": "0.0.1",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/material": "^5.15.19",
@@ -22,9 +23,12 @@
     "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
     "react-spring": "^9.7.3",
-    "scss": "^0.2.4",
+    "save-dev": "0.0.1-security",
     "swiper": "^11.1.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -53,7 +57,10 @@
   "devDependencies": {
     "clsx": "^2.1.1",
     "framer-motion": "^11.2.10",
+    "sass": "^1.77.4",
     "tailwind-merge": "^2.3.0",
-    "tailwindcss": "^3.4.4"
+    "tailwindcss": "^3.4.4",
+    "css-loader": "^6.7.3",
+    "style-loader": "^3.3.1"
   }
 }

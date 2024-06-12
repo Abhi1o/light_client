@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Globe from '../../magicui/globe';  // Ensure the path is correct
-import './OnboardingPage1.css';  // Import the CSS file
+import './OnboardingPage1.scss';  // Import the CSS file
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -38,13 +38,13 @@ const OnboardingPage1 = ({ onNext }) => {
   ];
 
   return (
-    <div className="onboarding-container">
+    <div className="onboarding-container1">
       <div className="onboarding-left left-section">
         <div className="onboarding-left-top">
         <div className="progress-bar">
-          <div className="step completed"></div>
-          <div className="step completed"></div>
-          <div className="step"></div>
+          <div className="step completed1"></div>
+          <div className="step completed2"></div>
+          <div className="step completed3"></div>
           <div className="step"></div>
           <div className="step"></div>
           <div className="step"></div>
@@ -54,11 +54,11 @@ const OnboardingPage1 = ({ onNext }) => {
         </div>
 
       
-        <div className="card-container">
+        <div className="card-container1">
           <Swiper
           slidesPerView="auto"
            spaceBetween={1}
-           pagination={{ clickable: true }}
+          //  pagination={{ clickable: true }}
           //  navigation
            modules={[Pagination, Navigation]}
            breakpoints={{
@@ -68,7 +68,7 @@ const OnboardingPage1 = ({ onNext }) => {
             },
             768: {
               slidesPerView: 3,
-              spaceBetween: 10,
+              spaceBetween: 1,
             },
             1024: {
               slidesPerView: 4,
@@ -82,15 +82,15 @@ const OnboardingPage1 = ({ onNext }) => {
            {cardData.map((item, index) => (
               <SwiperSlide key={index} className="swiper-slide">
                 <div
-                  className={`card ${selectedCard === index ? 'selected' : ''}`}
+                  className={`onbording1-card ${selectedCard === index ? 'selected' : ''}`}
                   onClick={() => handleCardClick(index)}
                 >
-                  <div className="tick">{selectedCard === index && '✔'}</div>
-                  <div className="card-content">
-                    <div className="card-icon">
+                  <div className="onbording1-card-tick">{selectedCard === index && '✔'}</div>
+                  <div className="onbording1-card-content">
+                    <div className="onbording1-card-icon">
                   <i className={`icon-${item.icon}`} >{item.icon}</i> 
                   </div>
-                  <span>{item.label}</span>
+                  <h4 className='onbording1-card-title'>{item.label}</h4>
                   </div>
                   
                 </div>
@@ -105,7 +105,7 @@ const OnboardingPage1 = ({ onNext }) => {
         </div> */}
         <div className="navigation-buttons">
           <button className="back-button">Back</button>
-          <button className="continue-button">Continue</button>
+          <button className="continue-button" onClick={handleContinue}>Continue</button>
         </div>
         {/* <h2>What kind of work do you do?</h2>
         <div className="options">
