@@ -27,7 +27,7 @@ const OnboardingPage2 = ({ onNext }) => {
 
   const handleContinue = () => {
     onNext();
-    navigate('/onboarding3');
+    navigate('/createwallet');
   };
   const cardData = [
     { label: 'Learn new skills', icon:<LuBrainCircuit />, title: 'Mastering New Skills for Personal and Professional Growth' },

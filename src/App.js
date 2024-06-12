@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import OnboardingPage1 from './pages/OnboardingPage1/OnboardingPage1';
 import OnboardingPage2 from './pages/OnboardingPage2/OnboardingPage2';
-import OnboardingPage3 from './pages/OnboardingPage3/OnboardingPage3'; // Assuming CreateWallet is the updated OnboardingPage3
+// import OnboardingPage3 from './pages/OnboardingPage3/OnboardingPage3'; // Assuming CreateWallet is the updated OnboardingPage3
 import Sidebar from "./pages/Sidebar/Sidebar";
 import CreateWallet from './pages/CreateWallet/CreateWallet';
 import Home from "./pages/Dashboard/Dashboard";
@@ -48,7 +48,7 @@ const App = () => {
           <Route path="/" element={<Navigate to={`/onboarding${onboardingStep}`} />} />
           <Route path="/onboarding1" element={<OnboardingPage1 onNext={handleNextStep} />} />
           <Route path="/onboarding2" element={<OnboardingPage2 onNext={handleNextStep} />} />
-          <Route path="/onboarding3" element={<OnboardingPage3 onNext={completeOnboarding} />} />
+          {/* <Route path="/onboarding3" element={<OnboardingPage3 onNext={completeOnboarding} />} /> */}
           <Route path="/createwallet" element={<CreateWallet onNext={completeOnboarding}/>} />
           <Route path="/home" element={<Navigate to={`/onboarding${onboardingStep}`} />} />
           
@@ -56,7 +56,7 @@ const App = () => {
       )}
       {isOnboardingComplete && (
         <>
-          <Route path="/pin" element={<OnboardingPage3 onNext={completeOnboarding} />} />
+          <Route path="/pin" element={<CreateWallet  onNext={completeOnboarding} />} />
           <Route path="*" element={<MainApp />} />
         </>
       )}
