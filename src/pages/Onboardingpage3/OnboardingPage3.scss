@@ -1,10 +1,11 @@
 // Colors
-$primary-color: #7ac142;
+$primary-color: #95cd4d;
 $background-overlay: rgba(0, 0, 0, 0.2);
 $background-color: #fcfeff;
 $border-color: #d3d3d3;
 $text-color: #666;
 $shadow-color: rgba(0, 0, 0, 0.1);
+$secondary-color:#cacaca;
 
 // Sizes
 $border-radius: 25px;
@@ -21,12 +22,14 @@ $border-radius: 25px;
   border-radius: $border-radius;
   cursor: pointer;
   padding: 15px 20px;
-  width: 280px !important;
+  width: 60% !important;
   margin-top: 20px;
 }
 
-@mixin input-style {
-  width: 280px !important;
+@mixin input-style ($bg-input-color, $text-input-color: rgb(13, 13, 13)){
+  background-color: $bg-input-color;
+  color: $text-input-color;
+  width: 60%  !important;
   padding: 15px 20px;
   border: 1px solid $border-color;
   border-radius: $border-radius;
@@ -55,7 +58,7 @@ hr {
 .login-container {
   position: relative;
   height: 100vh;
-  background-image: url('../../Assets/Image/MCGZ3K9N_output_0\ \(1\).webp');
+  background-image: url('../../Assets/Image/createwallet.jpeg');
   background-size: cover;
   background-position: center;
   @include flex-center;
@@ -69,12 +72,15 @@ hr {
     height: 100%;
     background: $background-overlay;
   }
+.create-account-link{
+  text-decoration: none;
+  width: 100%; // Ensures the link takes full width
 
+}
   .login-card {
     position: absolute;
     z-index: 1;
-    width: 100%;
-    max-width: 550px;
+    width: 41%;
     padding: 20px;
     background-color: white;
     border-radius: $border-radius;
@@ -86,6 +92,8 @@ hr {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 10px 0px 10px 50px;
+    justify-content: center;
 
     .Onboarding3-logo {
       margin-bottom: 20px;
@@ -97,27 +105,22 @@ hr {
       font-size: 45px;
       color: $primary-color;
       font-weight: 600;
+      margin-top: 15px;
     }
 
-    input[type="email"],
-    input[type="password"] {
-      @include input-style;
+    p{
+      margin-top: 5px !important;
     }
-
-    .password-container {
-      position: relative;
-
-      .password-toggle {
-        position: absolute;
-        top: 50%;
-        right: 130px;
-        transform: translateY(-50%);
-        cursor: pointer;
-      }
+    .create-wallet-email,
+    .create-wallet-password{
+      @include input-style($secondary-color);
+      outline: none !important;
     }
+    
 
     .create-account-button {
       @include button-style($primary-color);
+      flex-shrink: 1;
       
     }
     .finish{
@@ -125,43 +128,7 @@ hr {
       background-color: #8e8e8e
     }
 
-    .social-login {
-      @include flex-center;
-      gap: 10px;
-      margin: 20px 0 5px 0;
-      position: relative;
-
-      .social-button {
-        width: 280px;
-        height: 40px;
-        border: none;
-        border-radius: $border-radius;
-        cursor: pointer;
-        padding-left: 20px;
-        border: 1px solid rgba(0, 0, 0, 0.4);
-
-        &.google {
-          background-color: $background-color;
-        }
-
-        &.microsoft {
-          background-color: #0078d4;
-        }
-
-        &.github {
-          background-color: #333;
-        }
-
-        .social-login-icon {
-          position: absolute;
-          top: 50%;
-          left: 190px;
-          transform: translate(-50%, -50%);
-          font-size: 20px;
-          line-height: 5px;
-        }
-      }
-    }
+    
 
     p {
       margin: 40px 0px;

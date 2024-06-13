@@ -10,6 +10,8 @@ import TopNavbar from "./pages/TopNavbar/TopNavbar";
 import Chat from "./pages/ChatWindow/Chatapp";
 import Api from "./pages/ChatWindow/Api";
 import Settings from "./pages/Settings/Settings";
+import Onfj from "./pages/OnboardingPage3/Onfj";
+
 
 import './App.css';
 
@@ -48,15 +50,16 @@ const App = () => {
           <Route path="/" element={<Navigate to={`/onboarding${onboardingStep}`} />} />
           <Route path="/onboarding1" element={<OnboardingPage1 onNext={handleNextStep} />} />
           <Route path="/onboarding2" element={<OnboardingPage2 onNext={handleNextStep} />} />
-          {/* <Route path="/onboarding3" element={<OnboardingPage3 onNext={completeOnboarding} />} /> */}
-          <Route path="/createwallet" element={<CreateWallet onNext={completeOnboarding}/>} />
+          <Route path="/onboarding3" element={<Onfj onNext={completeOnboarding} />} />
+          {/* <Route path="/onboarding3" element={<OnboardingPage3 onNext={handleNextStep} />} /> */}
+          {/* <Route path="/createwallet" element={<CreateWallet onNext={completeOnboarding}/>} /> */}
           <Route path="/home" element={<Navigate to={`/onboarding${onboardingStep}`} />} />
           
         </>
       )}
       {isOnboardingComplete && (
         <>
-          <Route path="/pin" element={<CreateWallet  onNext={completeOnboarding} />} />
+          <Route path="/pin" element={<Onfj onNext={completeOnboarding} />} />
           <Route path="*" element={<MainApp />} />
         </>
       )}

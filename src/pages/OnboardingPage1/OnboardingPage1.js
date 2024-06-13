@@ -9,6 +9,8 @@ import { TbTie } from "react-icons/tb";
 import { VscDebugConsole } from "react-icons/vsc";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdDesignServices } from "react-icons/md";
+// import rightcarcoot from "../../Assets/Image/2150248728.jpg"
+import workcartoon from "../../Assets/Image/workcartoon.webp";
 // import required modules
 import {
   Pagination,
@@ -40,16 +42,16 @@ const OnboardingPage1 = ({ onNext }) => {
   return (
     <div className="onboarding-container1">
       <div className="onboarding-left left-section">
-        <div className="onboarding-left-top">
+        <div className="onboarding1-left-top">
         <div className="progress-bar">
           <div className="step completed1"></div>
-          <div className="step completed2"></div>
+          <div className="step completed2 "onClick={handleContinue}></div>
           <div className="step completed3"></div>
           <div className="step"></div>
           <div className="step"></div>
           <div className="step"></div>
         </div>
-        <h1>What kind of work <br/> do you do?</h1>
+        <h1 className='onboarding-page1-heading'>What kind of work <br/> do you do?</h1>
 
         </div>
 
@@ -58,12 +60,12 @@ const OnboardingPage1 = ({ onNext }) => {
           <Swiper
           slidesPerView="auto"
            spaceBetween={1}
-          //  pagination={{ clickable: true }}
+           pagination={{ clickable: true }}
           //  navigation
            modules={[Pagination, Navigation]}
            breakpoints={{
             640: {
-              slidesPerView: 1,
+              slidesPerView: 2,
               spaceBetween: 6,
             },
             768: {
@@ -71,9 +73,19 @@ const OnboardingPage1 = ({ onNext }) => {
               spaceBetween: 1,
             },
             1024: {
-              slidesPerView: 4,
+              slidesPerView: 3,
               spaceBetween: 10,
             },
+            1300:{
+              slidesPerView: 4,
+              spaceBetween: 5,
+
+            },
+            1450:{
+              slidesPerView: 4,
+              spaceBetween: 10,
+            }
+
             // when window width is >= 1024px
             
           }}
@@ -82,20 +94,21 @@ const OnboardingPage1 = ({ onNext }) => {
            {cardData.map((item, index) => (
               <SwiperSlide key={index} className="swiper-slide">
                 <div
-                  className={`onbording1-card ${selectedCard === index ? 'selected' : ''}`}
+                  className={`onboarding1-card ${selectedCard === index ? 'selected' : ''}`}
                   onClick={() => handleCardClick(index)}
                 >
-                  <div className="onbording1-card-tick">{selectedCard === index && '✔'}</div>
-                  <div className="onbording1-card-content">
-                    <div className="onbording1-card-icon">
+                  <div className="onboarding1-card-tick">{selectedCard === index && '✔'}</div>
+                  <div className="onboarding1-card-content">
+                    <div className="onboarding1-card-icon">
                   <i className={`icon-${item.icon}`} >{item.icon}</i> 
                   </div>
-                  <h4 className='onbording1-card-title'>{item.label}</h4>
+                  <h4 className='onboarding1-card-title'>{item.label}</h4>
                   </div>
                   
                 </div>
               </SwiperSlide>
             ))}
+
           </Swiper>
         </div>
         {/* <div className="navigation-dots">
@@ -119,8 +132,9 @@ const OnboardingPage1 = ({ onNext }) => {
           <button className="onboarding-button" onClick={handleContinue}>Continue</button>
         </div> */}
       </div>
-      <div className="onboarding-right right-section">
-        <Globe />
+      <div className="onboarding1-right right-section">
+        {/* <Globe /> */}
+        <img src={workcartoon} className="onboarding1-right-cartoon" />
       </div>
     </div>
   );

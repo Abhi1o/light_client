@@ -10,6 +10,9 @@ import { LuBrainCircuit } from "react-icons/lu";
 import { BsFillBriefcaseFill } from "react-icons/bs";
 import { MdOutlineConnectWithoutContact } from "react-icons/md";
 import { FaHandHoldingUsd } from "react-icons/fa";
+// import rightcarcoot from "../../Assets/Image/goalcartoon.webp"
+import rightcarcoot from "../../Assets/Image/goalcartoon2.jpg"
+
 // import required modules
 import {
   Pagination,
@@ -17,17 +20,20 @@ import {
 } from "swiper/modules";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-const OnboardingPage2 = ({ onNext }) => {
+const OnboardingPage2 = ({ onNext,onBack }) => {
   const [selectedCard, setSelectedCard] = useState(null);
 
   const handleCardClick = (index) => {
     setSelectedCard(index);
   };
   const navigate = useNavigate();
-
+const handleBack =() => {
+  
+  navigate('/onboarding1');
+}
   const handleContinue = () => {
     onNext();
-    navigate('/createwallet');
+    navigate('/onboarding3');
   };
   const cardData = [
     { label: 'Learn new skills', icon:<LuBrainCircuit />, title: 'Mastering New Skills for Personal and Professional Growth' },
@@ -42,14 +48,14 @@ const OnboardingPage2 = ({ onNext }) => {
       <div className="onboarding-left left-section">
       <div className="onboarding-left-top">
         <div className="progress-bar">
+          <div className="step completed2" onClick={handleBack}></div>
           <div className="step completed1"></div>
-          <div className="step completed2"></div>
+          <div className="step completed2" onClick={handleContinue}></div>
           <div className="step completed3"></div>
           <div className="step"></div>
           <div className="step"></div>
-          <div className="step"></div>
         </div>
-        <h1>What are your primary  <br/>  goal?</h1>
+        <h1 className='onboarding-page2-heading'>What are your primary  <br/>  goal?</h1>
 
         </div>
 
@@ -68,12 +74,22 @@ const OnboardingPage2 = ({ onNext }) => {
             },
             768: {
               slidesPerView: 3,
-              spaceBetween: 110,
+              spaceBetween: 1,
             },
             1024: {
-              slidesPerView: 4,
+              slidesPerView: 3,
               spaceBetween: 10,
             },
+            1300:{
+              slidesPerView: 4,
+              spaceBetween: 5,
+
+            },
+            1450:{
+              slidesPerView: 4,
+              spaceBetween: 10,
+            }
+
             // when window width is >= 1024px
             
           }}
@@ -105,8 +121,8 @@ const OnboardingPage2 = ({ onNext }) => {
           <span className="dot"></span>
         </div> */}
         <div className="navigation-buttons">
-          <button className="back-button">Back</button>
-          <button className="continue-button" onClick={handleContinue}>Continue</button>
+          <button className="back-button" onClick={handleBack}>Back</button>
+          <button className="continue-button"onClick={handleContinue} >Continue</button>
         </div>
         {/* <h2>What are your primary goals?</h2>
         <div className="options">
@@ -121,7 +137,8 @@ const OnboardingPage2 = ({ onNext }) => {
         </div> */}
       </div>
       <div className="onboarding-right right-section">
-        <Globe />
+        {/* <Globe /> */}
+        <img src={rightcarcoot} className="onboarding2-right-cartoon" />
       </div>
     </div>
   );
