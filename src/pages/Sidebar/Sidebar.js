@@ -69,7 +69,7 @@ const Sidebar = ({ onToggleSidebar }) => {
               <span className="navlink">Personalise Me</span>
             </Link>
           </li>
-          <li className={`item ${location.pathname === '/settings' ? 'active' : ''}`}>
+          {/* <li className={`item ${location.pathname === '/settings' ? 'active' : ''}`}>
             <Link to="/settings" className="nav_link">
               <span className="navlink_icon">
                 <i ><IoWalletSharp /></i>
@@ -100,11 +100,11 @@ const Sidebar = ({ onToggleSidebar }) => {
               </span>
               <span className="navlink">Metrics for Nerds</span>
             </Link>
-          </li>
+          </li> */}
           <li className={`item ${location.pathname === '/profile' ? 'active' : ''}`}>
             <Link to="/profile" className="nav_link">
               <span className="navlink_icon">
-                <i className="bx bx-user"></i>
+                <i className="bx bx-cog"></i>
               </span>
               <span className="navlink">Settings</span>
             </Link>
@@ -114,11 +114,11 @@ const Sidebar = ({ onToggleSidebar }) => {
         <div className="bottom_content">
           <div className="bottom expand_sidebar" onClick={toggleSidebar}>
             <span> Expand</span>
-            <i className='bx bx-log-in'><GiHamburgerMenu /></i>
+            <i className='bx bx-log-in'></i>
           </div>
           <div className="bottom collapse_sidebar" onClick={toggleSidebar}>
             <span> Collapse</span>
-            <i className='bx bx-log-out'><GiHamburgerMenu /></i>
+            <i className='bx bx-log-out'></i>
           </div>
         </div>
       </div>

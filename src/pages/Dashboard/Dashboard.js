@@ -22,47 +22,47 @@ const Dashboard = () => {
       {
         label: 'Stock Price',
         backgroundColor: 'rgba(75,192,192,0.4)',
-        borderColor: 'rgba(0, 255, 21,1)',
+        borderColor: '#29302c',
         data: [65, 59, 80, 30, 56, 90, 50,90,40,70,80],
         fill: false,
       tension: 0.4,
       },
     ],
   };
-  // const [chartData, setChartData] = useState({});
-  // const [price, setPrice] = useState(16073.49);
-  // const [percentageChange, setPercentageChange] = useState(9.3);
+  const [chartData, setChartData] = useState({});
+  const [price, setPrice] = useState(16073.49);
+  const [percentageChange, setPercentageChange] = useState(9.3);
 
-  // useEffect(() => {
-  //   const fetchStockData = () => {
-  //     // Fetch the data from an API (dummy data used here)
-  //     const newData = Array.from({ length: 10 }, () => Math.floor(Math.random() * 1) + 150);
-  //     const newPrice = newData[newData.length - 1];
-  //     const newPercentageChange = ((newPrice - price) / price) * 100;
+  useEffect(() => {
+    const fetchStockData = () => {
+      // Fetch the data from an API (dummy data used here)
+      const newData = Array.from({ length: 10 }, () => Math.floor(Math.random() * 1) + 150);
+      const newPrice = newData[newData.length - 1];
+      const newPercentageChange = ((newPrice - price) / price) * 100;
 
-  //     setChartData({
-  //       labels: Array.from({ length: newData.length }, (_, i) => i + 1),
-  //       datasets: [
-  //         {
-  //           label: 'Stock Price',
-  //           data: newData,
-  //           borderColor: 'rgba(255, 99, 132, 1)',
-  //           backgroundColor: 'rgba(255, 99, 132, 0.2)',
-  //           fill: false,
-  //           tension: 0.4,
-  //         },
-  //       ],
-  //     });
+      setChartData({
+        labels: Array.from({ length: newData.length }, (_, i) => i + 1),
+        datasets: [
+          {
+            label: 'Stock Price',
+            data: newData,
+            borderColor: 'rgba(255, 99, 132, 1)',
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            fill: false,
+            tension: 0.4,
+          },
+        ],
+      });
 
-  //     setPrice(newPrice.toFixed(2));
-  //     setPercentageChange(newPercentageChange.toFixed(2));
-  //   };
+      setPrice(newPrice.toFixed(2));
+      setPercentageChange(newPercentageChange.toFixed(2));
+    };
 
-  //   fetchStockData();
-  //   const interval = setInterval(fetchStockData, 5000);
+    fetchStockData();
+    const interval = setInterval(fetchStockData, 5000);
 
-  //   return () => clearInterval(interval);
-  // }, [price]);
+    return () => clearInterval(interval);
+  }, [price]);
 
   const totalIncome = 23194.8;
   const totalPaid = 8145.2;
@@ -151,7 +151,8 @@ const Dashboard = () => {
                 👋
               </span>{" "}
             </span>
-            <span className="help-text-bottom"> |Just ask me anything!</span>
+            <input type="text" className="help-text-bottom" placeholder="|Just ask me anything!"/>
+            {/* <span className="help-text-bottom"> |Just ask me anything!</span> */}
           </div>
           <div className="microphone-icon">
             <IoMicOutline fontSize="20px" />
@@ -255,7 +256,7 @@ const Dashboard = () => {
           </div>
         </div>
         {/* system lock  */}
-        <div className="card item3">
+        {/* <div className="card item3">
           <div className="lock-card-container">
             <div className="lock-circle-icon">
               <i className="lock-icon">
@@ -272,7 +273,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* day count  */}
         <div className="card item4">
@@ -348,7 +349,7 @@ const Dashboard = () => {
         {/* Annual profits  */}
         <div className="card item6">
         <div className="annual-card">
-      <div className="header">
+      <div className="annual-card-header">
         <h2>Annual profits</h2>
         <div className="year-selector">
           <select value={year} onChange={(e) => setYear(parseInt(e.target.value))}>
@@ -374,17 +375,17 @@ const Dashboard = () => {
       <div className="top-bar">
         <h2>Activity manager</h2>
         
-        <div className="filter-icons">
+        <div className="activity-manager-filter-icons">
           <i className="filter-icon"><PiDotsThreeVerticalBold /></i>
           <i className="filter-icon"><PiCornersIn /></i>
-          <i className="filter-icon"><BiFilterAlt fontSize="15px"/></i>
-          <i className="activity-manager-topbar-text">Filter</i>
+          
+          <i className="activity-manager-topbar-text"><BiFilterAlt fontSize="15px"/><span>Filter</span></i>
         </div>
       </div>
       <div className="activity-manager-cards-middle">
-      <div className="search-bar">
+      <div className="activity-manager-search-bar">
           <i className="activity-manager-search-icon"><FiSearch /></i>
-          <input type="text" placeholder="Search in activities ..." />
+          <input className="activity-manager-search-input" type="text" placeholder="Search in activities ..." />
         </div>
         <div className="filter-buttons">
           <button className="filter-button team">Team</button>
@@ -467,13 +468,17 @@ const Dashboard = () => {
           }} 
         />
       </div>
-      <div className="details">
+      <div className="stock-footer-details">
+         <div className="details">
         <h3>Main Stocks</h3>
         <p>Extended & Limited</p>
-        {/* <div className={`percentage ${percentageChange >= 0 ? 'positive' : 'negative'}`}>
+       </div> 
+       <div className={`percentage ${percentageChange >= 0 ? 'positive' : 'negative'}`}>
           {percentageChange >= 0 ? '+' : ''}{percentageChange}%
-        </div> */}
+        </div>
       </div>
+     
+      
     </div>
         </div>
         

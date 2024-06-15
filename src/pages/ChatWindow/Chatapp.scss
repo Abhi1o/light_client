@@ -1,22 +1,22 @@
 // Variables
-$background-color: #f0f0f0;
+$background-color: #f8f8f8;
 $sidebar-bg-color: #f8f8f8;
 $border-color: #ddd;
-$primary-color: #69da00d9;
-$hover-color: #b9ff78d9;
-$chat-tile-bg-color: #f3ffe8d9;
-$chat-card-bg-color: #92ff5c77;
+$primary-color: #95cd4d;;
+$hover-color: #81af44;;
+$chat-tile-bg-color: #ffffffd9;
+$chat-card-bg-color: #eeffe577;
 $chat-card-hover-bg-color: #f0f0f0;
 $user-message-bg-color: #feede6;
 $bot-message-bg-color: #f9f9f9;
 $input-container-bg-color: #f5f5f5f7;
-$input-container-border-color: #beff80d9;
+$input-container-border-color: #95cd4d;;
 $input-container-shadow-color: rgba(0, 0, 0, 0.1);
-$input-container-bottom-border-color: #a3ff4cd9;
-$input-container-top-border-color: #00e827ee;
+$input-container-bottom-border-color: #95cd4d;;
+$input-container-top-border-color: #95cd4d;;
 $input-border-color: transparent;
 $send-button-bg-color: #d8d8d8;
-$send-button-hover-color: #69da00d9;
+$send-button-hover-color: #95cd4d;;
 
 // Mixins
 @mixin flex-center {
@@ -28,18 +28,19 @@ $send-button-hover-color: #69da00d9;
 // Styles
 .app {
   @include flex-center;
-  height: 100vh;
-  background-color: $background-color;
+  // height: 100vh;
+  // background-color: $background-color;
   width: 100%;
 }
 
 .chat-sidebar {
   width: 350px;
   padding: 20px;
-  background-color: $sidebar-bg-color;
-  border-right: 1px solid $border-color;
-  height: 100svh;
-  overflow: hidden;
+  background-color: transparent !important;;
+  // border-right: 1px solid $border-color;
+  height: 100vh;
+  overflow: auto;
+  font-weight: 600;
 }
 
 h2 {
@@ -49,16 +50,26 @@ h2 {
 
 .new-chat-button {
   width: 100%;
-  padding: 10px;
+  height: 25px;
+  
   margin-bottom: 20px;
-  background-color: $primary-color;
-  color: rgb(9, 9, 9);
+  
+  color: var(--white-color);
   border: none;
-  border-radius: 25px;
+  
   cursor: pointer;
-  font-size: 16px;
+  
 
-  &:hover {
+ 
+}
+.bx-edit-alt{
+  font-size: 25px;
+  float: right;
+  background-color: $primary-color;
+  padding:  10px;
+  border-radius: 15px;
+
+   &:hover {
     background-color: $hover-color;
   }
 }
@@ -67,12 +78,12 @@ h2 {
   background-color: $chat-tile-bg-color;
   padding: 20px;
   margin: 20px 0;
-  border-radius: 10px;
+  border-radius: 20px;
 }
 
 .date-category {
   font-size: 14px;
-  color: #555;
+  color: #a4a4a4;
   margin: 1px 0 20px;
   cursor: pointer;
   text-align: left;
@@ -91,8 +102,8 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  border-radius: 8px;
+  padding: 8px 10px;
+  border-radius: 15px;
   background-color: $chat-card-bg-color;
   margin-bottom: 10px;
   cursor: pointer;
@@ -126,6 +137,19 @@ h2 {
   background-color: #fff;
   overflow: hidden;
   height: 100vh;
+  background: url("../../Assets/Image/simple\ bf-chat.webp");
+  
+  object-fit:fill;
+background-position: center center;
+background-size: cover;
+}
+.chat-container .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:rgba(10, 10, 10, 0.645);
 }
 
 .chat-messages {
@@ -138,6 +162,13 @@ h2 {
   margin-bottom: 120px;
   justify-content: flex-start;
   gap: 20px;
+}
+.chat-container-menu{
+  position: absolute;
+  top:11%;
+  right:7%;
+  color: var(--white-color);
+  font-size: 30px;
 }
 
 .chat-message {
@@ -195,12 +226,12 @@ h2 {
   margin: 0 auto;
   align-items: center;
   justify-content: space-between;
-  
-  width: 750px;
+  font-weight: 600;
+  width: 84%;
   position: absolute;
   bottom: 50px;
-  right: 5%;
-  border-radius: 26px;
+  right: 7%;
+  border-radius: 20px;
   border: 1px solid $input-container-border-color;
   border-bottom: 4px solid $input-container-bottom-border-color;
   box-shadow: 0 2px 4px $input-container-shadow-color;
@@ -209,18 +240,19 @@ h2 {
 }
 
 .chat-input-container input {
-  width: 700px;
+  // width: 700px;
   flex: 1;
   border: none;
   outline: none !important;
   margin-left: 10px !important;
   font-size: 17px;
   margin-right: 10px;
-  background-color: $input-border-color !important;
+  background-color: var(--gray-color) !important;
 }
 
 .chat-input-container i {
   background-color: $send-button-bg-color;
+  
   color: #ffffff;
   border: none;
   cursor: pointer;

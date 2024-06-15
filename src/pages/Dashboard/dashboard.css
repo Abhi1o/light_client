@@ -10,7 +10,7 @@
 
   :root {
     --white-color: #fff;
-    --green-color: #69da00d9;
+    --green-color: #95cd4d;
     --grey-color: #707070;
     --grey-color-light: #aaa;
   }
@@ -20,8 +20,8 @@
   flex-direction: column;
   flex: 1;
   position: relative;
-  background-color: #fff;
-  padding: 20px;
+  background-color:transparent !important;;
+  padding: 40px 0;
   width: 100%;
   margin-top: 10px; 
   }
@@ -29,7 +29,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px;
+    padding: 10px 20px;
     background-color: #f4f4f4;
   }
   .hero-sectionleft {
@@ -74,7 +74,7 @@
   
   .day-name,
   .month-name {
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 700;
     color: #333;
   }
@@ -86,15 +86,16 @@
   
   .tasks-button {
     background-color: var(--green-color);
-    color: white;
+    color: var(--white-color);
     border: none;
-    padding: 13px 20px;
-    border-radius: 30px;
-    font-size: 12px;
+    padding: 12px 20px;
+    border-radius: 300px;
+    font-size: 14px;
     cursor: pointer;
     display: flex;
     align-items: center;
     cursor: pointer;
+    font-weight: 700;
   }
   
   .tasks-button:after {
@@ -105,13 +106,15 @@
   .calendar-icon {
     margin-left: 15px;
     position: relative;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
-    background-color: #ececec;
+    background-color: var(--white-color);
+    color: var(--grey-color);
     border: 1px solid #ccc;
     text-align: center;
-    line-height: 45px;
+    /* line-height: 45px; */
+    padding: 12px;
   }
   
   .notification-dot {
@@ -120,14 +123,14 @@
     border-radius: 50%;
     background-color: red;
     position: absolute;
-    top: -1px;
-    right: -2px;
+    top: 1px;
+    right: 2px;
   }
   .hero-sectionright {
     width: 50%;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     padding: 20px;
   }
   
@@ -136,7 +139,7 @@
     flex-direction: column;
     align-items: flex-start;
   
-    font-size: 23px;
+    font-size: 29px;
   
     margin-right: 40px;
     font-weight: 600;
@@ -150,6 +153,8 @@
     color: #bbbbbb;
     padding-top: 5px;
     font-weight: 500;
+    background-color: transparent;
+    outline: none !important;
   }
   
   .microphone-icon {
@@ -157,8 +162,9 @@
     height: 60px;
     border-radius: 50%;
     text-align: center;
-    ;
-    background-color: #ffffff;
+    padding: 19px;
+    background-color: var(--white-color);
+    color: var(--grey-color);
   }
   .header {
       display: flex;
@@ -172,14 +178,7 @@
       margin-right: 20px;
     }
     
-    .tasks-button {
-      background-color: var(--green-color);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+    
     
     .header-right {
       display: flex;
@@ -202,7 +201,7 @@
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-    grid-template-rows:repeat(15 , 40px);
+    grid-template-rows:repeat(15 , 36px);
     
     justify-content: center;
   
@@ -213,17 +212,17 @@
   }
   /* CardComponent.css */
   .item1{
-    grid-area: 1/1/8/6;
+    grid-area: 1/1/8/7;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   
   }
   .item2{
-    grid-area: 1/6/8/11;
+    grid-area: 1/7/8/13;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
-  .item3{
+  /* .item3{
     grid-area:1/11/8/13
-  }
+  } */
   
   .item4{
     grid-area: 1/13/6/16;
@@ -250,20 +249,20 @@
   .card {
     border-radius: 28px;
     /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
-    background-color: #fff;
+    background-color: var(--white-color);
     margin: 10px 10px;
   }
   
   .card-top-body {
     background-color: #fff;
     border-radius: 28px;
-    padding: 20px;
+    padding: 13px 20px;
   }
   .card-buttom-body {
-    background-color: #f4f4f4;
+    background-color: #f8f8f8;
     border-radius: 28px;
     border: 3px solid transparent;
-    height: 100%;
+    
   }
   .card-header {
     display: flex;
@@ -280,11 +279,12 @@
   .direct-debits-button {
     background-color: #f9f9f9;
     border: none;
-    padding: 7px 15px;
+    padding: 4px 15px;
     border-radius: 20px;
     font-size: 12px;
     cursor: pointer;
     font-weight: 700;
+    border:1px solid var(--grey-color-light);
   }
   
   .visa-card-body {
@@ -294,13 +294,14 @@
   
   .linked-account {
     color: #828282;
-    font-size: 12px;
-    margin-bottom: 05px;
+    font-size: 11px;
+    margin-bottom: 0px;
+    font-weight: 600;
   }
   
   .account-number {
     font-size: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-weight: 800;
   }
   
@@ -312,7 +313,7 @@
   .visa-receive-button,
   .visa-send-button {
     width: 100px;
-    padding: 8px 0;
+    padding: 6px 0;
     border-radius: 40px;
     border: none;
     font-size: 12px;
@@ -326,17 +327,18 @@
   }
   
   .visa-send-button {
-    background-color: #fafafa;
+    background-color: #f4f4f4;
     color: #191919;
   }
   
   .card-footer {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    
     border-top: 1px solid #f0f0f0;
-    padding-top: 10px;
+    margin-top: 5px;
     padding: 15px 20px;
+    height: 100%;
   }
   .visa-card-footer-left {
     text-align: left;
@@ -344,13 +346,14 @@
   
   .monthly-fee {
     color: #888;
-    font-size: 12px;
-    margin-bottom: 5px;
+    font-size: 11px;
+    margin-bottom: 0px;
+    font-weight: 600;
   }
   
   .fee-amount {
     font-size: 15px;
-    font-weight: bold;
+    font-weight: 800;
   }
   
   .edit-limitation-button {
@@ -374,7 +377,9 @@
     flex-direction: column;
     align-items: flex-start;
     margin-left: 8px;
-    font-size: 12px;
+    font-size: 10px;
+    line-height: 10px;
+    font-weight: 600;
   }
   
   
@@ -384,34 +389,38 @@
   .income-card-icon, .paid-card-icon {
       border:1px solid #ccc;
       border-radius: 50%;
-      width: 25px;
-      height: 25px;
-      padding: 4px;
+      width: 30px;
+      height: 30px;
+      padding: 6px;
       text-align: center;
       line-height: 6px;
   background-color: #f6f6f6;
+  font-weight: 600;
   
   
     }
   .income-card-select, .paid-card-select {
       font-size: 12px;
-      padding: 6px 10px;
+      padding: 4px 15px;
       border: none;
       border-radius: 15px;
       background-color: #f0f0f0;
       border: 1px solid #aaa;
+      font-weight:600;
     }
     
     .income-card-body, .paid-card-body  {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      justify-content: center;
       text-align: left;
     }
     
     .income-card-title, .paid-card-title {
-      font-size: 12px;
-      color: #888;
+      color: #828282;
+    font-size: 11px;
+    margin-bottom: 0px;
+    font-weight: 600;
     }
     
     .income-card-amount, .paid-card-amount {
@@ -425,13 +434,14 @@
     
     
   .paid-card-footer{
-      padding: 15px 20px;
+      padding: 12px 20px;
   }
   
   .paid-card-footer-body{
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 0px;
     
   
   }
@@ -445,7 +455,7 @@
   }
   
   .paid-chart-mode-button {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--green-color);
       background: none;
       border: none;
@@ -455,6 +465,8 @@
       justify-content: center;
       text-align: left;
       align-items: center;
+      font-weight: 600;
+      line-height: 10px;
   
     }
   
@@ -577,6 +589,7 @@
       border-radius: 26px;
       height: 100%;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      justify-content: center;
     }
     
     .calendar-circle-icon {
@@ -586,6 +599,7 @@
       justify-content: center;
       width: 30px;
       height: 30px;
+      padding: 9px;
       background-color: #ffffff;
       border-radius: 50%;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -604,18 +618,21 @@
       font-size: 15px;
       margin: 5px 0;
       text-align: left;
+      font-weight: 600;
     }
     
     .date-info p {
       font-size: 11px;
       color: #4c4c4c;
       margin: 0;
+      font-weight: 600;
     }
     
     .days-grid {
       display: grid;
       grid-template-columns: repeat(10, 1fr);
-      gap: 5px;
+      gap: 2px;
+      justify-items: center;
     }
     
     .day-dot {
@@ -623,6 +640,7 @@
       height: 10px;
       background-color: #e0e0e0;
       border-radius: 50%;
+      flex-shrink: 0;
       /* height: 100%; */
      
     }
@@ -661,6 +679,7 @@
     
     .bar-chart-icon {
       font-size: 24px;
+      font-weight: 600;
     }
     
     .graph-content {
@@ -813,31 +832,35 @@
       height: 100%;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       position: relative;
-    }
     
-    .header {
+    
+    .annual-card-header {
       display: flex;
       justify-content: space-between;
       width: 100%;
       align-items: center;
+      padding: 0px;
     }
     
-    .header h2 {
-      font-size: 16px;
+    h2 {
+      font-size: 14px;
+      font-weight: 600;
       margin: 0;
     }
     
     .year-selector {
-      background-color: #ffffff;
-      padding: 5px 10px;
-      border-radius: 10px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: #f4f4f4;
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid #aaa;
+      /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
     }
     
     .year-selector select {
       border: none;
       background: transparent;
-      font-size: 14px;
+      font-size: 13px;
+      font-weight: 600;
     }
     
     .profit-circles {
@@ -867,46 +890,47 @@
     }
     
     .smallest {
-      width: 90px;
-      height: 90px;
-      background-color: #97ff4773;
+      width: 65px;
+      height: 65px;
+      background-color: #95cd4d;;
       z-index: 4;
     }
     
     .smaller {
-      width: 130px;
-      height: 130px;
-      background-color: rgba(148, 255, 99, 0.365);
+      width: 100px;
+      height: 100px;
+      background-color: #96cd4d80;;
       z-index: 3;
     }
     
     .small {
-      width: 170px;
-      height: 170px;
-      background-color: rgba(191, 255, 146, 0.468);
+      width: 140px;
+      height: 140px;
+      background-color: #96cd4d3f;;
       z-index: 2;
     }
     
     .large {
-      width: 210px;
-      height: 210px;
-      background-color: rgba(230, 255, 209, 0.583);
+      width: 180px;
+      height: 180px;
+      background-color: #96cd4d29;;
       z-index: 1;
     }
     .annual-profit-amount{
       position: absolute;
     color: black;
     font-size: 15px;
-    font-weight: bold;
-    top: 15px;
+    font-weight: 600;
+    top: 12px;
     }
-  
+    }
     /* activity-manager */
   
     .activity-manager {
       display: flex;
+      font-weight: 600;
       flex-direction: column;
-      gap: 20px;
+      gap: 10px;
       padding: 20px;
       background-color: #f8f8f8;
       border-radius: 28px;
@@ -923,7 +947,7 @@
     }
     
     .top-bar h2 {
-      font-size: 15px;
+      font-size: 14px;
       margin: 0;
     }
     .activity-manager-cards-middle{
@@ -933,27 +957,34 @@
       justify-content: center;
     }
     
-    .search-bar {
+    .activity-manager-search-bar {
       display: flex;
       align-items: center;
-      background-color: #ffffff;
       padding: 5px 10px;
       border-radius: 10px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
       flex-grow: 1;
       margin-right: 20px;
     }
     
-    .search-bar .search-icon {
-      font-size: 18px;
+    .activity-manager-search-icon {
+      font-size: 13px;
+      border: 1px solid#aaaaaa;
+      border-radius: 50%;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #3d3d3d;
     }
     
-    .search-bar input {
+    .activity-manager-search-input {
       border: none;
       outline: none;
       margin-left: 10px;
-      font-size: 14px;
+      font-size: 13px;
       flex-grow: 1;
+      background-color: transparent;
     }
     
     .filter-buttons {
@@ -964,33 +995,49 @@
     .filter-buttons button {
       background-color: #ffffff;
       border: none;
-      padding: 5px 10px;
-      border-radius: 10px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 3px 10px;
+      border-radius: 20px;
+      /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
       cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
     }
     .team {
       background-color:var(--green-color);
-      color: white;
+      color: rgb(19, 19, 19);
     }
-    .filter-icons {
+    .activity-manager-filter-icons {
       display: flex;
       gap: 10px;
       align-items: center;
       justify-self: start;
     }
     
-    .filter-icons .filter-icon {
+   .filter-icon {
       font-size: 18px;
       cursor: pointer;
+      border-radius: 50%;
+      background-color: #fafafa;
+      border: 1px solid rgb(219, 219, 219);
+      padding: 3px;
     }
     
     .activity-manager-topbar-text{
   font-size: 14px;
   padding: 5px 10px;
   background-color: #ffffff;
-  border-radius: 15px;
+  border-radius: 20px;
+  display: flex;
+  gap: 10px;
     }
+    .activity-manager-topbar-text span{
+      
+      font-weight: 600;
+      font-size: 9px;
+      color: #828282;
+    }
+
+
   
   .activity-manager-chart {
     display: flex;
@@ -1002,13 +1049,13 @@
   }
   
   .activity-manager-bar {
-    width: 8px;
+    width: 7px;
     height: 40%;
     background-color: var(--green-color);
     border-radius: 5px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
   }
   
   .activity-manager-bar:nth-child(1) { height: 20%;  background-color: var(--green-color); }
@@ -1099,7 +1146,6 @@
     .stock-card {
       display: flex;
       flex-direction: column;
-      gap: 10px;
       padding: 20px;
       background-color: #f6f6f6;
       border-radius: 28px;
@@ -1131,9 +1177,13 @@
       display: flex;
       align-items: center;
       gap: 5px;
-      font-size: 24px;
+      font-size: 20px;
       font-weight: bold;
-      color: var(--green-color);
+      color: #000000;
+    }
+    .price .currency{
+color: var(--green-color);
+font-size:18px;
     }
     
     .currency {
@@ -1146,23 +1196,31 @@
       margin-top: 40px;
     }
     .canvas{
-height: 70px;
+height: 50px;
     }
-    
+    .stock-footer-details{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
     .details {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      align-items: flex-start;
       justify-content: space-between;
     }
     
     .details h3 {
       font-size: 16px;
       margin: 0;
+      font-weight: 600;
     }
     
     .details p {
-      font-size: 12px;
+      font-size: 10px;
       color: #666666;
+      font-weight: 600;
       margin: 0;
     }
     
@@ -1170,9 +1228,11 @@ height: 70px;
       display: inline-block;
       padding: 5px 10px;
       border-radius: 10px;
+      border: 1px solid #aaaaaa;
+      border-radius: 20px;
       font-size: 14px;
       font-weight: bold;
-      background-color: rgba(255, 99, 132, 0.2);
+      /* background-color: rgba(255, 99, 132, 0.2); */
       color: var(--green-color);
     }
   
@@ -1191,7 +1251,7 @@ height: 70px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
     
     .dots {
@@ -1225,7 +1285,8 @@ height: 70px;
     .card-content h3 {
       font-size: 12px;
       color: #9d9d9d;
-      margin: 10px 0;
+      font-weight: 600;
+      /* margin: 10px 0; */
     }
     
     .card-content p {

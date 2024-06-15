@@ -5,24 +5,26 @@ import "./Onfj.scss";
 import Encryption from "../../Assets/Image/Encryption.gif";
 import { Link, useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
-import { LuCopy } from "react-icons/lu";
-import { LuCopyCheck } from "react-icons/lu";
+import { LuCopy, LuCopyCheck } from "react-icons/lu";
 
 const CreateWallet = ({ onNext }) => {
-  const navigate = useNavigate;
+  const navigate = useNavigate();
   const [activeForm, setActiveForm] = useState("recovery");
 
   const handleToggle = (form) => {
     setActiveForm(form);
   };
+
   const [mnemonic, setMnemonic] = useState("");
   const [password, setPassword] = useState("");
   const [encryptedPrivateKey, setEncryptedPrivateKey] = useState("");
   const [isOnboarding, setIsOnboarding] = useState(true);
+
   const handleContinue = () => {
     onNext();
     navigate("/home");
   };
+
   useEffect(() => {
     const storedPrivateKey = localStorage.getItem("encryptedPrivateKey");
     setIsOnboarding(!storedPrivateKey);
@@ -72,7 +74,7 @@ const CreateWallet = ({ onNext }) => {
   };
 
   const [step, setStep] = useState(0);
-  console.log(step)
+
   const handleNext = (nextStep) => setStep(nextStep);
   const handleBack = () => setStep((prevStep) => prevStep - 1);
 
@@ -102,17 +104,18 @@ const CreateWallet = ({ onNext }) => {
 
   const [copied, setCopied] = useState(false);
 
-  const copyToClipboard = (mnemonic) => {
-    navigator.clipboard.writeText(mnemonic).then(
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text).then(
       () => {
         setCopied(true);
-        setTimeout(() => setCopied(false), 3000); // Reset the copied state after 2 seconds
+        setTimeout(() => setCopied(false), 3000); // Reset the copied state after 3 seconds
       },
       (err) => {
-        console.error('Could not copy text: ', err);
+        console.error("Could not copy text: ", err);
       }
     );
   };
+
   const renderCardContent = () => {
     switch (step) {
       case 0:
@@ -205,24 +208,16 @@ const CreateWallet = ({ onNext }) => {
               Here is your unique recovery phrase. Store it in a safe place –
               it's your key to accessing your wallet anytime, anywhere.
             </p>
-            <p>
-              {" "}
-              Display a list of 12/24 words. (Make sure to keep these safe!)
-            </p>
-            <button onClick={copyToClipboard}>
-        {copied ? <LuCopyCheck /> : <LuCopy />}
-      </button>
-            
             <div className="mnemonic-keys-container">
               {mnemonic.split(" ").map((key, i) => (
                 <p key={i} className="mnemonic-key">
                   {key}
                 </p>
-
-                // <input key={i} type="text" className="recovery-form-word"  placeholder={`Word ${i + 1}`} />
               ))}
             </div>
-
+            <button onClick={() => copyToClipboard(mnemonic)}>
+              {copied ? <LuCopyCheck /> : <LuCopy />}
+            </button>
             <button
               className="create-wallet-primary-btn"
               onClick={() => handleNext(6)}
@@ -256,7 +251,6 @@ const CreateWallet = ({ onNext }) => {
               </div>
               {activeForm === "recovery" ? (
                 <div className="recovery-form">
-                  {/* <p> Enter your 12/24 words here.</p> */}
                   {[...Array(12)].map((_, i) => (
                     <input
                       key={i}
@@ -269,7 +263,6 @@ const CreateWallet = ({ onNext }) => {
                 </div>
               ) : (
                 <div className="private-key-form">
-                  {/* <p>Enter your private key here.</p> */}
                   <input
                     type="text"
                     className="form-control"

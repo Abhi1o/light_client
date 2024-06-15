@@ -1,0 +1,9 @@
+{
+    "plugins": [
+      "@babel/plugin-transform-optional-catch-binding",
+      "@babel/plugin-transform-logical-assignment-operators",
+      "@babel/plugin-transform-async-generator-functions",
+      "@babel/plugin-transform-object-rest-spread"
+    ]
+  }
+  

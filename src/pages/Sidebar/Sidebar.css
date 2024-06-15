@@ -60,6 +60,10 @@ body.dark {
 
 .menu_content {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 350px;
 }
 
 .menu_title {
