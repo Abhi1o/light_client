@@ -1,289 +1,289 @@
-$primary-color: #85b744;
-$background-overlay: rgba(0, 0, 0, 0.2);
-$background-color: #fcfeff;
-$border-color: #d3d3d3;
-$text-color: #20241c;
-$shadow-color: rgba(0, 0, 0, 0.1);
-$secondary-color: #e3e3e3;
+// $primary-color: #85b744;
+// $background-overlay: rgba(0, 0, 0, 0.2);
+// $background-color: #fcfeff;
+// $border-color: #d3d3d3;
+// $text-color: #20241c;
+// $shadow-color: rgba(0, 0, 0, 0.1);
+// $secondary-color: #e3e3e3;
 
-$input-border-radius: 25px;
+// $input-border-radius: 25px;
 
-// Sizes
-$border-radius: 25px;
-@mixin flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+// // Sizes
+// $border-radius: 25px;
+// @mixin flex-center {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
 
-@mixin button-style($bg-color) {
-  background-color: $bg-color;
-  color: $text-color;
-  border: 1px solid #85b744;
-  border-radius: $border-radius;
-  cursor: pointer;
-  padding: 15px 20px;
-  width: 100% !important;
-  margin-top: 20px;
-  font-weight: 700;
-}
+// @mixin button-style($bg-color) {
+//   background-color: $bg-color;
+//   color: $text-color;
+//   border: 1px solid #85b744;
+//   border-radius: $border-radius;
+//   cursor: pointer;
+//   padding: 15px 20px;
+//   width: 100% !important;
+//   margin-top: 20px;
+//   font-weight: 700;
+// }
 
-@mixin input-style($bg-input-color, $text-input-color: rgb(13, 13, 13)) {
-  background-color: $bg-input-color;
-  color: $text-input-color;
-  width: 100% !important;
-  padding: 15px 20px;
-  border: 1px solid $border-color;
-  border-radius: $border-radius;
-  font-size: 15px !important;
-  margin: 7px 0;
-  font-weight: 700;
-}
+// @mixin input-style($bg-input-color, $text-input-color: rgb(13, 13, 13)) {
+//   background-color: $bg-input-color;
+//   color: $text-input-color;
+//   width: 100% !important;
+//   padding: 15px 20px;
+//   border: 1px solid $border-color;
+//   border-radius: $border-radius;
+//   font-size: 15px !important;
+//   margin: 7px 0;
+//   font-weight: 700;
+// }
 
-.login-container {
-  position: relative;
-  height: 100vh;
-  background-image: url("../../Assets/Image/createwallet.jpeg");
-  background-size: cover;
-  background-position: center;
-  @include flex-center;
-  justify-content: flex-start;
+// .login-container {
+//   position: relative;
+//   height: 100vh;
+//   background-image: url("../../Assets/Image/createwallet.jpeg");
+//   background-size: cover;
+//   background-position: center;
+//   @include flex-center;
+//   justify-content: flex-start;
 
-  .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: $background-overlay;
-  }
+//   .overlay {
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     height: 100%;
+//     background: $background-overlay;
+//   }
 
-  .login-card {
-    position: absolute;
-    z-index: 1;
-    width: 41%;
-    padding: 0 20px;
-    background-color: white;
-    border-radius: $border-radius;
-    box-shadow: 0 4px 8px $shadow-color;
-    text-align: center;
-    margin-left: 50px;
-    right: 35px;
-    height: 92%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px 0px 10px 50px;
-    justify-content: center;
+//   .login-card {
+//     position: absolute;
+//     z-index: 1;
+//     width: 41%;
+//     padding: 0 20px;
+//     background-color: white;
+//     border-radius: $border-radius;
+//     box-shadow: 0 4px 8px $shadow-color;
+//     text-align: center;
+//     margin-left: 50px;
+//     right: 35px;
+//     height: 92%;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     margin: 10px 0px 10px 50px;
+//     justify-content: center;
 
-    .login-card-content {
-      border: none !important;
-      width: 70% !important;
-      margin: 0 20px;
-      overflow: auto !important;
-      h1 {
-        margin-bottom: 50px;
-        font-size: 45px;
-        color: $primary-color;
-        font-weight: 600;
-      }
+//     .login-card-content {
+//       border: none !important;
+//       width: 70% !important;
+//       margin: 0 20px;
+//       overflow: auto !important;
+//       h1 {
+//         margin-bottom: 50px;
+//         font-size: 45px;
+//         color: $primary-color;
+//         font-weight: 600;
+//       }
 
-      .create-wallet-card-content {
-        text-align: left;
+//       .create-wallet-card-content {
+//         text-align: left;
 
-        h2 {
-          margin-bottom: 10px;
-          color: $text-color;
-          font-weight: 700;
-        }
+//         h2 {
+//           margin-bottom: 10px;
+//           color: $text-color;
+//           font-weight: 700;
+//         }
 
-        p {
-          margin-bottom: 25px;
-          color: #666;
-          font-size: 15px;
-        }
-        .mnemonic-keys-container{
-          display: flex;
-          flex-wrap: wrap;
-          // justify-content: center;
-          align-items: center;
+//         p {
+//           margin-bottom: 25px;
+//           color: #666;
+//           font-size: 15px;
+//         }
+//         .mnemonic-keys-container{
+//           display: flex;
+//           flex-wrap: wrap;
+//           // justify-content: center;
+//           align-items: center;
 
-          gap: 10px;
-          .mnemonic-key{
-            width: 31%;
-            border: 1px solid #aaaaaa;;
-            padding: 10px 10px;
-            border-radius: 25px;
-            margin-bottom: 0;
-            text-align: center;
-            font-weight: 600;
-          }
-        }
-        .options-list {
-          text-align: left;
+//           gap: 10px;
+//           .mnemonic-key{
+//             width: 31%;
+//             border: 1px solid #aaaaaa;;
+//             padding: 10px 10px;
+//             border-radius: 25px;
+//             margin-bottom: 0;
+//             text-align: center;
+//             font-weight: 600;
+//           }
+//         }
+//         .options-list {
+//           text-align: left;
         
-        }
-        .options-list h2 {
-          color: #4caf50;
+//         }
+//         .options-list h2 {
+//           color: #4caf50;
           
-        }
+//         }
         
-        .options-list ul {
-          list-style-type: none;
-          padding: 0;
-        }
+//         .options-list ul {
+//           list-style-type: none;
+//           padding: 0;
+//         }
         
-        .option-item {
-          background: #e8f5e9;
-          margin: 10px 0;
-          padding: 10px;
-          border-radius: 15px;
-          display: flex;
-          align-items: flex-start;
-        }
-          .checkbox{
-            margin-top: 10px !important;
-          }
+//         .option-item {
+//           background: #e8f5e9;
+//           margin: 10px 0;
+//           padding: 10px;
+//           border-radius: 15px;
+//           display: flex;
+//           align-items: flex-start;
+//         }
+//           .checkbox{
+//             margin-top: 10px !important;
+//           }
         
-        .option-item h3 {
-          margin: 0 0 5px 0;
-          color: #307c34;
-          font-weight: 600;
-        }
+//         .option-item h3 {
+//           margin: 0 0 5px 0;
+//           color: #307c34;
+//           font-weight: 600;
+//         }
         
-        .option-item p {
-          margin: 0;
-          color: #555;
-        }
+//         .option-item p {
+//           margin: 0;
+//           color: #555;
+//         }
         
-        .option-item input[type="checkbox"] {
-          margin-right: 10px;
-          transform: scale(1.5);
-          accent-color: #4caf50;
-        }
+//         .option-item input[type="checkbox"] {
+//           margin-right: 10px;
+//           transform: scale(1.5);
+//           accent-color: #4caf50;
+//         }
         
-        .option-item label {
-          display: flex;
-          flex-direction: column;
-        }
-        .toggle-form-container {
-          max-width: 500px;
-          margin: auto;
-          padding: 20px;
-          background: #f8f8f8;
-          border-radius: 10px;
-          box-shadow: 0 10 15px rgba(0, 0, 0, 0.7);
-          text-align: center;
+//         .option-item label {
+//           display: flex;
+//           flex-direction: column;
+//         }
+//         .toggle-form-container {
+//           max-width: 500px;
+//           margin: auto;
+//           padding: 20px;
+//           background: #f8f8f8;
+//           border-radius: 10px;
+//           box-shadow: 0 10 15px rgba(0, 0, 0, 0.7);
+//           text-align: center;
 
-          .toggle-buttons {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 10px;
-            font-weight: 600;
-            padding: 3px 0px;
-            border-radius: 25px;
-            border: 1px solid #8e8e8e;
-            transition: background 0.3s, color 0.3s;
+//           .toggle-buttons {
+//             display: flex;
+//             justify-content: space-around;
+//             margin-bottom: 10px;
+//             font-weight: 600;
+//             padding: 3px 0px;
+//             border-radius: 25px;
+//             border: 1px solid #8e8e8e;
+//             transition: background 0.3s, color 0.3s;
 
-            button {
-              padding: 5px 30px;
-              border: none;
-              border-radius: 25px;
-              cursor: pointer;
-              background: none;
-              transition: background 0.3s, color 0.3s;
+//             button {
+//               padding: 5px 30px;
+//               border: none;
+//               border-radius: 25px;
+//               cursor: pointer;
+//               background: none;
+//               transition: background 0.3s, color 0.3s;
 
-              &.active {
-                background: $primary-color;
-                color: white;
-              }
+//               &.active {
+//                 background: $primary-color;
+//                 color: white;
+//               }
 
-              &:hover:not(.active) {
-                background: $primary-color;
-                color: white;
-              }
-            }
-          }
+//               &:hover:not(.active) {
+//                 background: $primary-color;
+//                 color: white;
+//               }
+//             }
+//           }
 
-          .recovery-form,
-          .private-key-form {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 5px;
+//           .recovery-form,
+//           .private-key-form {
+//             display: flex;
+//             flex-wrap: wrap;
+//             align-items: center;
+//             gap: 5px;
 
-            .recovery-form-word {
-              width: 32%;
-              padding: 5px 10px;
-              margin: 5px 0;
-              border: 1px solid $border-color;
-              border-radius: $input-border-radius;
-            }
+//             .recovery-form-word {
+//               width: 32%;
+//               padding: 5px 10px;
+//               margin: 5px 0;
+//               border: 1px solid $border-color;
+//               border-radius: $input-border-radius;
+//             }
 
-            .import-button {
-              width: 50%;
-              padding: 10px;
-              margin-top: 20px;
-              border: none;
-              border-radius: 5px;
-              background: $primary-color;
-              color: white;
-              cursor: pointer;
-              transition: background 0.3s;
+//             .import-button {
+//               width: 50%;
+//               padding: 10px;
+//               margin-top: 20px;
+//               border: none;
+//               border-radius: 5px;
+//               background: $primary-color;
+//               color: white;
+//               cursor: pointer;
+//               transition: background 0.3s;
 
-              &:hover {
-                background: darken($primary-color, 10%);
-              }
-            }
-          }
-        }
-        .form-control,
-        .create-wallet-password {
-          @include input-style($secondary-color);
-          outline: none !important;
-        }
+//               &:hover {
+//                 background: darken($primary-color, 10%);
+//               }
+//             }
+//           }
+//         }
+//         .form-control,
+//         .create-wallet-password {
+//           @include input-style($secondary-color);
+//           outline: none !important;
+//         }
 
-        .create-wallet-primary-btn,
-        .create-wallet-secondary-btn {
-          // background-color: #4CAF50;
-          // color: white;
-          // border: none;
-          // padding: 10px 20px;
-          // cursor: pointer;
-          // border-radius: 5px;
-          // margin: 10px 5px;
-          @include button-style($primary-color);
-          flex-shrink: 1;
-          &:hover {
-            background-color: #488300;
-            color: #fcfeff;
-          }
-        }
-        .create-wallet-secondary-btn {
-          background-color: transparent !important;
-          &:hover {
-            background-color: #adf7b1;
-            color: $text-color;
-          }
-        }
-      }
-    }
-  }
-}
+//         .create-wallet-primary-btn,
+//         .create-wallet-secondary-btn {
+//           // background-color: #4CAF50;
+//           // color: white;
+//           // border: none;
+//           // padding: 10px 20px;
+//           // cursor: pointer;
+//           // border-radius: 5px;
+//           // margin: 10px 5px;
+//           @include button-style($primary-color);
+//           flex-shrink: 1;
+//           &:hover {
+//             background-color: #488300;
+//             color: #fcfeff;
+//           }
+//         }
+//         .create-wallet-secondary-btn {
+//           background-color: transparent !important;
+//           &:hover {
+//             background-color: #adf7b1;
+//             color: $text-color;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
 
-.Create-wallet-back-button {
-  position: absolute;
-  top: 5%;
-  left: 50%;
-  background-color: $secondary-color;
-  color: #000000;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 15px;
-  font-size: 15px;
-  z-index: 2;
-  &:hover {
-    background-color: $primary-color;
-  }
-}
+// .Create-wallet-back-button {
+//   position: absolute;
+//   top: 5%;
+//   left: 50%;
+//   background-color: $secondary-color;
+//   color: #000000;
+//   border: none;
+//   padding: 10px 20px;
+//   cursor: pointer;
+//   border-radius: 15px;
+//   font-size: 15px;
+//   z-index: 2;
+//   &:hover {
+//     background-color: $primary-color;
+//   }
+// }
