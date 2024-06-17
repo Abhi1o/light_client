@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "homepage": ".",
+  "proxy": "https://cosmos-rpc.quickapi.com:443",
   "dependencies": {
     "-": "0.0.1",
     "@cosmjs/amino": "^0.32.3",
@@ -15,6 +16,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.7.2",
     "bip39": "^3.1.0",
     "boxicons": "^2.1.4",
     "buffer": "^6.0.3",
@@ -42,6 +44,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
+   
+    "start:dev": "webpack serve --mode development --open",
+    "start:prod": "webpack serve --mode production",
+    "build:dev": "webpack --mode development",
+    "build:prod": "webpack --mode production",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -66,11 +73,17 @@
   },
   "devDependencies": {
     "clsx": "^2.1.1",
-    "css-loader": "^6.7.3",
+    "css-loader": "^6.11.0",
+    "file-loader": "^6.2.0",
     "framer-motion": "^11.2.10",
+    "node-polyfill-webpack-plugin": "^4.0.0",
     "sass": "^1.77.4",
-    "style-loader": "^3.3.1",
+    "style-loader": "^3.3.4",
     "tailwind-merge": "^2.3.0",
     "tailwindcss": "^3.4.4"
+  },
+  "browser": {
+    "crypto": false,
+    "stream": false
   }
 }

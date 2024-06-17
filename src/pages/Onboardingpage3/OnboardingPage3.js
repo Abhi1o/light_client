@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Wallet, HDNodeWallet } from "ethers";
 import CryptoJS from "crypto-js";
-import "./Onfj.scss";
+import "./OnboardingPage3.scss";
 import Encryption from "../../Assets/Image/Encryption.gif";
 import { Link, useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
