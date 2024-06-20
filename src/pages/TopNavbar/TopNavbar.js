@@ -7,7 +7,7 @@ const TopNavbar = ({ toggleDarkMode }) => {
     <nav className="navbar">
       <div className="logo_item">
         <i className="bx bx-menu" id="sidebarOpen"></i>
-        <p>Executor AI</p>
+        <p>AI</p>
       </div>
       <div className="navbar-right">
         <div className="navbar_content">

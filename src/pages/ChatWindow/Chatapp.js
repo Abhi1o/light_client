@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef  } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Chatapp.scss";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { MdKeyboardArrowDown } from "react-icons/md";
@@ -96,14 +96,14 @@ const bip39 = require("bip39");
 //       case 'send':
 //         console.log("before")
 //           const sendAmount = { denom: chainConfig.denom, amount: params.amount };
-//           result = await client.sendTokens(firstAccount.address, params.recipient, [sendAmount], fee, 'Sending tokens');
+//           result = await client.sendTokens(firstAccount.address, params.validatorAddress, [sendAmount], fee, 'Sending tokens');
 //           console.log("after")
 //           break;
 //       case 'ibcTransfer':
 //           const transferAmount = { denom: chainConfig.denom, amount: params.amount };
 //           const channel = { sourcePort: 'transfer', sourceChannel: 'channel-0' };
 //           const timeoutHeight = { revisionNumber: 1, revisionHeight: 12345678 };
-//           result = await client.sendIbcTokens(firstAccount.address, params.recipient, transferAmount, channel, timeoutHeight, fee, 'IBC transfer');
+//           result = await client.sendIbcTokens(firstAccount.address, params.validatorAddress, transferAmount, channel, timeoutHeight, fee, 'IBC transfer');
 //           break;
 //       case 'delegate':
 //           const delegateAmount = { denom: chainConfig.denom, amount: params.amount };
@@ -159,7 +159,7 @@ const bip39 = require("bip39");
 //           const sendAmount = parseInt(params.amount, 10) * LAMPORTS_PER_SOL;
 //           transaction.add(SystemProgram.transfer({
 //               fromPubkey: keypair.publicKey,
-//               toPubkey: params.recipient,
+//               toPubkey: params.validatorAddress,
 //               lamports: sendAmount,
 //           }));
 //           break;
@@ -182,7 +182,7 @@ const bip39 = require("bip39");
 //       case 'send':
 //           const sendAmount = ethers.utils.parseEther(params.amount);
 //           const tx = {
-//               to: params.recipient,
+//               to: params.validatorAddress,
 //               value: sendAmount,
 //               gasLimit: 21000,
 //               gasPrice: await provider.getGasPrice(),
@@ -209,9 +209,7 @@ const Sidebar = ({
       <button className="new-chat-button" onClick={onStartNewChat}>
         <i className="bx bx-edit-alt"></i>
       </button>
-      <div>
-
-      </div>
+      <div></div>
       {["Today", "Yesterday", "Previous 7 Days"].map((dateCategory) => (
         <div key={dateCategory} className="chat-tile">
           <h6
@@ -251,7 +249,6 @@ const Sidebar = ({
 
 //
 
-
 const testing = async (chainName, transactionType, mnemonic, params) => {
   try {
     const response = await axios.post("http://localhost:5000/api/data", {
@@ -266,102 +263,129 @@ const testing = async (chainName, transactionType, mnemonic, params) => {
     throw error;
   }
 };
- 
-
-
- 
-
-
 
 const ChatWindow = ({ chat }) => {
-
-  const[copy, setCopy]=useState(false);
+  const [copy, setCopy] = useState(false);
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
-const messagesEndRef = useRef(null);
-  const handleHashCopy =(transactionHash) => {
-    
-    navigator.clipboard.writeText(transactionHash).then(()=>{
-  setCopy(true)
-    setTimeout(() => {
-      setCopy(false)
-    }, 2000)},
-    (err) => {
-      console.error("Could not copy text: ", err);
-    }
-  
-    )}
-    const TokenImage ={
-      "cosmoshub": atomSuccessImage,
-      "solana": "https://cryptologos.cc/logos/solana-sol-logo.png",
-      "ethereum": "https://cdn3d.iconscout.com/3d/premium/thumb/ethereum-coin-5533573-4623160.png",
+  // const messagesEndRef = useRef(null);
+  const handleHashCopy = (transactionHash) => {
+    navigator.clipboard.writeText(transactionHash).then(
+      () => {
+        setCopy(true);
+        setTimeout(() => {
+          setCopy(false);
+        }, 2000);
+      },
+      (err) => {
+        console.error("Could not copy text: ", err);
+      }
+    );
+  };
+  const TokenImage = {
+    cosmoshub: atomSuccessImage,
+    solana: "https://cryptologos.cc/logos/solana-sol-logo.png",
+    ethereum:
+      "https://cdn3d.iconscout.com/3d/premium/thumb/ethereum-coin-5533573-4623160.png",
+  };
 
-    }
-    
-    const TransactionCard = ({ blockchainImage, blockchainName, amount,recipient, transactionHash }) => (
-  <div className="transaction-card">
-    <img src={blockchainImage} alt={blockchainName} />
-    <div className="transaction-details">
-      <span>successfully send</span>
-      <h3> {amount} Atom </h3>
-      <p> to {recipient.slice(0,16) + "..."}</p>
-      {/* <p> {blockchainName}</p> */}
-      
+  const TransactionCard = ({
+    blockchainImage,
+    blockchainName,
+    amount,
+    validatorAddress,
+    transactionHash,
+  }) => (
+    <div className="transaction-card">
+      <img src={blockchainImage} alt={blockchainName} />
+      <div className="transaction-details">
+        <span>successfully send</span>
+        <h3> {amount} Atom </h3>
+        <p> to {validatorAddress.slice(0, 16) + "..."}</p>
+        {/* <p> {blockchainName}</p> */}
+
         {/* <p><strong>Transaction Hash:</strong> {transactionHash}</p> */}
-        <button onClick={()=>handleHashCopy(transactionHash) }>{copy ? ("Copied ✅") :("Copy Hash")}</button>
-      
+        <button onClick={() => handleHashCopy(transactionHash)}>
+          {copy ? "Copied ✅" : "Copy Hash"}
+        </button>
+      </div>
     </div>
-  </div>
-);
+  );
   const handleSend = async () => {
     const inputParts = inputValue.split(" ");
     const isTransaction = inputParts.length === 4;
-    const [chainName, transactionType, amount, recipient] = inputParts;
-    const params = { recipient, amount };
+    const [chainName, transactionType, amount, validatorAddress] = inputParts;
+    const params = { validatorAddress, amount };
     const mnemonic = ""; // Replace with actual mnemonic
 
     if (inputValue.trim()) {
-      const userMessage = { text: inputValue, sender: "user", timestamp: new Date() };
+      const userMessage = {
+        text: inputValue,
+        sender: "user",
+        timestamp: new Date(),
+      };
       setMessages([...messages, userMessage]);
       setInputValue("");
 
-      const loadingMessage = { text: "Loading...", sender: "bot", timestamp: new Date() };
+      const loadingMessage = {
+        text: "Loading...",
+        sender: "bot",
+        timestamp: new Date(),
+      };
       setMessages((prevMessages) => [...prevMessages, loadingMessage]);
 
       setLoading(true);
 
       try {
         if (isTransaction) {
-          const transactionHash = await testing(chainName, transactionType, mnemonic, params);
+          const transactionHash = await testing(
+            chainName,
+            transactionType,
+            mnemonic,
+            params
+          );
           const botReply = {
             type: "transaction",
             blockchainImage: TokenImage[chainName], // Set the appropriate image path
             blockchainName: chainName,
             amount,
-            recipient: params.recipient,
+            validatorAddress: params.validatorAddress,
             transactionHash: transactionHash.hash,
           };
-          setMessages((prevMessages) => [...prevMessages.slice(0, -1), botReply]);
+          setMessages((prevMessages) => [
+            ...prevMessages.slice(0, -1),
+            botReply,
+          ]);
         } else {
-          const botReply = { text: `Echo: ${inputValue}`, sender: "bot", timestamp: new Date() };
-          setMessages((prevMessages) => [...prevMessages.slice(0, -1), botReply]);
+          const botReply = {
+            text: `Echo: ${inputValue}`,
+            sender: "bot",
+            timestamp: new Date(),
+          };
+          setMessages((prevMessages) => [
+            ...prevMessages.slice(0, -1),
+            botReply,
+          ]);
         }
       } catch (error) {
         console.error("Error:", error);
-        const botReply = { text: "Error occurred during transaction.", sender: "bot", timestamp: new Date() };
+        const botReply = {
+          text: "Error occurred during transaction.",
+          sender: "bot",
+          timestamp: new Date(),
+        };
         setMessages((prevMessages) => [...prevMessages.slice(0, -1), botReply]);
       }
 
       setLoading(false);
     }
   };
-  useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [messages]);
-
+  // useEffect(() => {
+  //   if (messagesEndRef.current) {
+  //     messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+  //   }
+  // }, [messages]);
 
   return (
     <div className="chat-container">
@@ -369,30 +393,38 @@ const messagesEndRef = useRef(null);
       <i className="bx bx-dots-horizontal-rounded chat-container-menu"></i>
       <div className="chat-messages">
         {messages.map((message, index) => (
-          <div key={index} className={`chat-message ${message.sender === "user" ? "user-message" : "bot-message"}`}>
+          <div
+            key={index}
+            className={`chat-message ${
+              message.sender === "user" ? "user-message" : "bot-message"
+            }`}
+          >
             {message.type === "transaction" ? (
               <TransactionCard
                 blockchainImage={message.blockchainImage}
                 blockchainName={message.blockchainName}
                 amount={message.amount}
-                recipient={message.recipient}
+                validatorAddress={message.validatorAddress}
                 transactionHash={message.transactionHash}
               />
             ) : (
               <>
                 <div className="message-text">{message.text}</div>
-                <div className="message-time">{message.timestamp.toLocaleTimeString()}</div>
+                <div className="message-time">
+                  {message.timestamp.toLocaleTimeString()}
+                </div>
               </>
             )}
           </div>
         ))}
+        {/* <div ref={messagesEndRef} /> */}
       </div>
       <div className="chat-input-container">
         <input
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Type your message or transaction (chainName transactionType amount recipient)"
+          placeholder="Type your message or transaction (chainName transactionType amount validatorAddress)"
           onKeyPress={(e) => {
             if (e.key === "Enter") {
               handleSend();
@@ -494,3 +526,20 @@ const Chatapp = () => {
 };
 
 export default Chatapp;
+
+
+// // Generated by CodiumAI
+
+// describe('ChatWindow', () => {
+
+//   // User sends an empty message and nothing happens
+//   it('should not add a message when an empty message is sent', () => {
+//     const { getByPlaceholderText, queryByText } = render(<ChatWindow />);
+
+//     const input = getByPlaceholderText("Type your message or transaction (chainName transactionType amount validatorAddress)");
+//     fireEvent.change(input, { target: { value: "" } });
+//     fireEvent.keyPress(input, { key: "Enter", code: "Enter", charCode: 13 });
+
+//     expect(queryByText("Echo:")).not.toBeInTheDocument();
+//   });
+// });

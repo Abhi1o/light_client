@@ -80,7 +80,7 @@ $border-radius: 25px;
       border: none !important;
       width: 70% !important;
       margin: 0 20px;
-      overflow: auto !important;
+      // overflow: auto !important;
       h1 {
         margin-bottom: 50px;
         font-size: 45px;
@@ -131,6 +131,8 @@ $border-radius: 25px;
         .options-list ul {
           list-style-type: none;
           padding: 0;
+          overflow: auto;
+          max-height: 180px;
         }
         
         .option-item {

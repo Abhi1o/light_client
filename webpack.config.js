@@ -61,7 +61,7 @@ module.exports = {
       zlib: false,
       http: false,
       https: false,
-      stream: false,
+      stream: require.resolve("stream-browserify"), // Use stream-browserify
       crypto: require.resolve("crypto-browserify"), // Use crypto-browserify
     },
   },

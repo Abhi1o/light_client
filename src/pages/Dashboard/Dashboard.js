@@ -33,36 +33,36 @@ const Dashboard = () => {
   const [price, setPrice] = useState(16073.49);
   const [percentageChange, setPercentageChange] = useState(9.3);
 
-  useEffect(() => {
-    const fetchStockData = () => {
-      // Fetch the data from an API (dummy data used here)
-      const newData = Array.from({ length: 10 }, () => Math.floor(Math.random() * 1) + 150);
-      const newPrice = newData[newData.length - 1];
-      const newPercentageChange = ((newPrice - price) / price) * 100;
+  // useEffect(() => {
+  //   const fetchStockData = () => {
+  //     // Fetch the data from an API (dummy data used here)
+  //     const newData = Array.from({ length: 10 }, () => Math.floor(Math.random() * 1) + 150);
+  //     const newPrice = newData[newData.length - 1];
+  //     const newPercentageChange = ((newPrice - price) / price) * 100;
 
-      setChartData({
-        labels: Array.from({ length: newData.length }, (_, i) => i + 1),
-        datasets: [
-          {
-            label: 'Stock Price',
-            data: newData,
-            borderColor: 'rgba(255, 99, 132, 1)',
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            fill: false,
-            tension: 0.4,
-          },
-        ],
-      });
+  //     setChartData({
+  //       labels: Array.from({ length: newData.length }, (_, i) => i + 1),
+  //       datasets: [
+  //         {
+  //           label: 'Stock Price',
+  //           data: newData,
+  //           borderColor: 'rgba(255, 99, 132, 1)',
+  //           backgroundColor: 'rgba(255, 99, 132, 0.2)',
+  //           fill: false,
+  //           tension: 0.4,
+  //         },
+  //       ],
+  //     });
 
-      setPrice(newPrice.toFixed(2));
-      setPercentageChange(newPercentageChange.toFixed(2));
-    };
+  //     setPrice(newPrice.toFixed(2));
+  //     setPercentageChange(newPercentageChange.toFixed(2));
+  //   };
 
-    fetchStockData();
-    const interval = setInterval(fetchStockData, 5000);
+  //   fetchStockData();
+  //   const interval = setInterval(fetchStockData, 5000);
 
-    return () => clearInterval(interval);
-  }, [price]);
+  //   return () => clearInterval(interval);
+  // }, [price]);
 
   const totalIncome = 23194.8;
   const totalPaid = 8145.2;
