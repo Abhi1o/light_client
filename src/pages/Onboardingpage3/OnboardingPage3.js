@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Wallet, HDNodeWallet } from "ethers";
+import { Wallet, HDNodeWallet, Mnemonic } from "ethers";
 import CryptoJS from "crypto-js";
 import "./OnboardingPage3.scss";
 import Encryption from "../../Assets/Image/Encryption.gif";
@@ -17,8 +17,9 @@ const CreateWallet = ({ onNext }) => {
 
   const [mnemonic, setMnemonic] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [encryptedPrivateKey, setEncryptedPrivateKey] = useState("");
-  const [isOnboarding, setIsOnboarding] = useState(true);
+  const [isOnboarding, setIsOnboarding] = useState(null);
 
   const handleContinue = () => {
     onNext();
@@ -37,13 +38,28 @@ const CreateWallet = ({ onNext }) => {
 
   const encryptPrivateKey = () => {
     if (mnemonic && password) {
-      const wallet = HDNodeWallet.fromMnemonic(mnemonic);
+      console.log("before wallet encryption", mnemonic);
+      console.log(
+        "before wallet encryption",
+        typeof mnemonic,
+        toString(mnemonic)
+      );
+      const mnemonicInstance = Mnemonic.fromPhrase(mnemonic);
+      const firstAccount = HDNodeWallet.fromMnemonic(
+        mnemonicInstance,
+        `m/44'/60'/0'/0/0`
+      );
+      // const wallet = HDNodeWallet.fromMnemonic(mnemonic);
+      console.log("after wallet encryption");
       const encrypted = CryptoJS.AES.encrypt(
-        wallet.privateKey,
+        firstAccount.privateKey,
         password
       ).toString();
+      console.log("after encryption");
       setEncryptedPrivateKey(encrypted);
+      localStorage.setItem("username", name);
       localStorage.setItem("encryptedPrivateKey", encrypted);
+      // setIsOnboarding(false); // Set to false explicitly
       alert("Wallet created and private key encrypted successfully!");
       onNext(); // Notify the parent component (App.js) to complete onboarding
     } else {
@@ -337,19 +353,32 @@ const CreateWallet = ({ onNext }) => {
             {/* <p>Name: Enter your full name.</p>
             <p>Age: Enter your age.</p>
             <p>Password: Create a secure password for your account.</p> */}
-            <input type="text" className="form-control" placeholder="Name" />
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
             <input type="number" className="form-control" placeholder="Age" />
             <input
               type="password"
               className="form-control"
               placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
             />
-            <button
-              className="create-wallet-primary-btn"
-              onClick={handleContinue}
-            >
-              Finish
-            </button>{" "}
+           
+              <button
+                className="create-wallet-primary-btn"
+                onClick={() => {
+                  encryptPrivateKey();
+                  handleContinue();
+                }}
+              >
+                 {isOnboarding ? "Finish":"LogIn" }
+              </button>
+           
             {/*onClick={() => navigate('/home')} onClick={handleContinue}  */}
           </div>
         );
@@ -373,7 +402,6 @@ const CreateWallet = ({ onNext }) => {
 
   return (
     <div className="login-container">
-      
       {step > 0 && (
         <button className="Create-wallet-back-button" onClick={handleBack}>
           <IoArrowBack />
@@ -381,12 +409,15 @@ const CreateWallet = ({ onNext }) => {
       )}
 
       <div className="overlay"></div>
-      <div className="login-card">
-        <div className="login-card-content">
-          <h1>Create Wallet</h1>
-          {renderCardContent()}
+    <h1>{step}</h1>
+    
+        <div className="login-card">
+          <div className="login-card-content">
+            <h1>{isOnboarding ? "Create Wallet" : ("Connect Wallet")}</h1>
+            {renderCardContent()}
+          </div>
         </div>
-      </div>
+     
     </div>
   );
 };

@@ -15,6 +15,7 @@ import { BiFilterAlt } from "react-icons/bi";
 import { PiDotsThreeVerticalBold } from "react-icons/pi";
 import { Line } from 'react-chartjs-2'
 import { RiStockLine } from "react-icons/ri";
+
 const Dashboard = () => {
   const data = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July',"Aug","Sept","Oct","Nov",],

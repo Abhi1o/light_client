@@ -1,8 +1,16 @@
 import React from "react";
 import "./TopNavbar.scss";
 import Profile from "../../Assets/Image/profile.jpg";
+import CreateWallet from "../OnboardingPage3/OnboardingPage3";
+import { useNavigate } from "react-router-dom";
 
-const TopNavbar = ({ toggleDarkMode }) => {
+const TopNavbar = ({ toggleDarkMode}) => {
+  const navigate = useNavigate();
+  const handleNavigate =() => {
+    
+    navigate("/pin");
+  };
+  const userName = localStorage.getItem("username");
   return (
     <nav className="navbar">
       <div className="logo_item">
@@ -12,9 +20,9 @@ const TopNavbar = ({ toggleDarkMode }) => {
       <div className="navbar-right">
         <div className="navbar_content">
           <div className="profile">
-            <i className="bx bx-plus"></i>
+            <i className="bx bx-plus" onClick={handleNavigate}></i>
             <img src={Profile} alt="Profile" className="profile-img" />
-            <span className="profile">Abhishek</span>
+            <span className="profile">{userName}</span>
           </div>
         </div>
         <div className="search_bar">
