@@ -28,7 +28,9 @@ const CreateWallet = ({ onNext }) => {
 
   useEffect(() => {
     const storedPrivateKey = localStorage.getItem("encryptedPrivateKey");
+    console.log("isOnboarding",isOnboarding);
     setIsOnboarding(!storedPrivateKey);
+    console.log("isOnboarding",isOnboarding);
   }, []);
 
   const generateWallet = () => {
@@ -413,7 +415,7 @@ const CreateWallet = ({ onNext }) => {
     
         <div className="login-card">
           <div className="login-card-content">
-            <h1>{isOnboarding ? "Create Wallet" : ("Connect Wallet")}</h1>
+            <h1>{isOnboarding ? "Create Wallet" : "Welcome Back"}</h1>
             {renderCardContent()}
           </div>
         </div>

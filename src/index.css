@@ -1,3 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap");
+body {
+  margin: 0;
+  line-height: normal;
+}
+:root {
+  /* fonts */
+  --font-inter: Inter;
+
+  /* font sizes */
+  --font-size-xl: 20px;
+  --font-size-mini: 15px;
+  --font-size-sm: 14px;
+  --font-size-xs: 12px;
+  --font-size-41xl: 60px;
+  --font-size-17xl: 36px;
+  --font-size-29xl: 48px;
+
+  /* Colors */
+  --color-gray-100: rgba(0, 0, 0, 0.26);
+  --color-blueviolet: rgba(150, 63, 249, 0);
+  --color-darkslateblue: #454b79;
+  --color-white: #fff;
+  --color-blue: rgba(21, 45, 255, 0.03);
+  --color-mediumslateblue: #a269ff;
+  --color-gainsboro: #dedede;
+
+  /* Paddings */
+  --padding-18xl: 37px;
+  --padding-17xl: 36px;
+  --padding-3xs: 10px;
+
+  /* Border radiuses */
+  --br-3xs: 10px;
+  --br-5xs: 8px;
+}
+
 body {
   margin: 0;
   font-family: "Varela Round", 'Segoe UI', 'Roboto', 'Oxygen',

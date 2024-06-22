@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate,useNavigationType,
+  useLocation, } from 'react-router-dom';
 import OnboardingPage1 from './pages/OnboardingPage1/OnboardingPage1';
 import OnboardingPage2 from './pages/OnboardingPage2/OnboardingPage2';
 // import OnboardingPage3 from './pages/OnboardingPage3/OnboardingPage3'; // Assuming CreateWallet is the updated OnboardingPage3
@@ -14,10 +15,46 @@ import OnboardingPage3 from "./pages/OnboardingPage3/OnboardingPage3";
 
 
 import './App.css';
+import LandingPage from './pages/LandingPage/LandingPage';
 
 const App = () => {
+
   const [isOnboardingComplete, setIsOnboardingComplete] = useState(false);
   const [onboardingStep, setOnboardingStep] = useState(1);
+const action = useNavigationType();
+  const location = useLocation();
+  const pathname = location.pathname;
+
+  useEffect(() => {
+    if (action !== "POP") {
+      window.scrollTo(0, 0);
+    }
+  }, [action, pathname]);
+
+  useEffect(() => {
+    let title = "";
+    let metaDescription = "";
+
+    switch (pathname) {
+      case "/":
+        title = "";
+        metaDescription = "";
+        break;
+    }
+
+    if (title) {
+      document.title = title;
+    }
+
+    if (metaDescription) {
+      const metaDescriptionTag = document.querySelector(
+        'head > meta[name="description"]'
+      );
+      if (metaDescriptionTag) {
+        metaDescriptionTag.content = metaDescription;
+      }
+    }
+  }, [pathname]); 
 
   useEffect(() => {
     const completedOnboarding = localStorage.getItem('onboardingComplete');
@@ -47,10 +84,12 @@ const App = () => {
     <Routes>
       {!isOnboardingComplete && (
         <>
+        
           <Route path="/" element={<Navigate to={`/onboarding${onboardingStep}`} />} />
-          <Route path="/onboarding1" element={<OnboardingPage1 onNext={handleNextStep} />} />
-          <Route path="/onboarding2" element={<OnboardingPage2 onNext={handleNextStep} />} />
-          <Route path="/onboarding3" element={<OnboardingPage3 onNext={completeOnboarding} />} />
+          <Route path="/onboarding1" element={<LandingPage onNext={handleNextStep} />} />
+          <Route path="/onboarding2" element={<OnboardingPage3 onNext={handleNextStep}/>} />
+          <Route path="/onboarding2" element={<OnboardingPage1 onNext={handleNextStep} />} />
+          <Route path="/onboarding3" element={<OnboardingPage2 onNext={completeOnboarding}  />} />
           {/* <Route path="/onboarding3" element={<OnboardingPage3 onNext={handleNextStep} />} /> */}
           {/* <Route path="/createwallet" element={<CreateWallet onNext={completeOnboarding}/>} /> */}
           <Route path="/home" element={<Navigate to={`/onboarding${onboardingStep}`} />} />
