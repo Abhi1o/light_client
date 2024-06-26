@@ -10,7 +10,7 @@
 
   :root {
     --white-color: #fff;
-    --green-color: #95cd4d;
+    --green-color: #8d4dcd;
     --grey-color: #707070;
     --grey-color-light: #aaa;
   }
@@ -892,28 +892,28 @@
     .smallest {
       width: 65px;
       height: 65px;
-      background-color: #95cd4d;;
+      background-color: #ab4dcd;;
       z-index: 4;
     }
     
     .smaller {
       width: 100px;
       height: 100px;
-      background-color: #96cd4d80;;
+      background-color: #c04dcd80;;
       z-index: 3;
     }
     
     .small {
       width: 140px;
       height: 140px;
-      background-color: #96cd4d3f;;
+      background-color: #ba4dcd3f;;
       z-index: 2;
     }
     
     .large {
       width: 180px;
       height: 180px;
-      background-color: #96cd4d29;;
+      background-color: #ad4dcd29;;
       z-index: 1;
     }
     .annual-profit-amount{

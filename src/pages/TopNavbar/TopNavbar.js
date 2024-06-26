@@ -1,7 +1,7 @@
 import React from "react";
 import "./TopNavbar.scss";
 import Profile from "../../Assets/Image/profile.jpg";
-import CreateWallet from "../OnboardingPage3/OnboardingPage3";
+import CreateWallet from "../OnboardingPage3/OnboardingPage2";
 import { useNavigate } from "react-router-dom";
 
 const TopNavbar = ({ toggleDarkMode}) => {

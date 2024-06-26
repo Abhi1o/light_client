@@ -58,6 +58,7 @@ const Sidebar = ({ onToggleSidebar }) => {
               <span className="navlink">New Chat</span>
             </Link>
           </li>
+          
         </ul>
         <ul className="menu_items">
           <div className="menu_title menu_setting"></div>
@@ -66,7 +67,7 @@ const Sidebar = ({ onToggleSidebar }) => {
               <span className="navlink_icon">
                 <i ><MdOutlinePersonalVideo /></i>
               </span>
-              <span className="navlink">Personalise Me</span>
+              <span className="navlink">Setting</span>
             </Link>
           </li>
           {/* <li className={`item ${location.pathname === '/settings' ? 'active' : ''}`}>
@@ -106,7 +107,7 @@ const Sidebar = ({ onToggleSidebar }) => {
               <span className="navlink_icon">
                 <i className="bx bx-cog"></i>
               </span>
-              <span className="navlink">Settings</span>
+              <span className="navlink">Profile</span>
             </Link>
           </li>
         </ul>

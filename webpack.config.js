@@ -11,16 +11,24 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"]
-          }
-        },
-      },
+     {
+  test: /\.(js|jsx)$/,
+  exclude: /node_modules/,
+  enforce: 'pre',
+  use: [
+    { loader: 'source-map-loader' },
+    {
+      loader: "babel-loader",
+      options: {
+        presets: ["@babel/preset-env", "@babel/preset-react"]
+      }
+    }
+  ],
+  exclude: [
+    // Exclude missing source maps
+    /node_modules\/cosmjs-types/,
+  ],
+},
       {
         test: /\.scss$/,
         use: [
@@ -63,6 +71,7 @@ module.exports = {
       https: false,
       stream: require.resolve("stream-browserify"), // Use stream-browserify
       crypto: require.resolve("crypto-browserify"), // Use crypto-browserify
+      buffer: require.resolve('buffer/'),
     },
   },
   plugins: [

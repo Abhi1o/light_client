@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Globe from '../../magicui/globe';   // Ensure the path is correct
 // import '../css/OnboardingPage1.css'; 
-import './OnboardingPage2.scss' // Import the CSS file
+import './OnboardingPage4.scss' // Import the CSS file
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -11,8 +11,8 @@ import { BsFillBriefcaseFill } from "react-icons/bs";
 import { MdOutlineConnectWithoutContact } from "react-icons/md";
 import { FaHandHoldingUsd } from "react-icons/fa";
 // import rightcarcoot from "../../Assets/Image/goalcartoon.webp"
-import rightcarcoot from "../../Assets/Image/goalcartoon2.jpg"
-
+import rightcarcoot from "../../Assets/Image/goalcartoon2.jpg";
+import chatai from "../../Assets/Image/chatAI.jpg";
 // import required modules
 import {
   Pagination,
@@ -20,7 +20,7 @@ import {
 } from "swiper/modules";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-const OnboardingPage2 = ({ onNext,onBack }) => {
+const OnboardingPage4 = ({ onNext,onBack }) => {
   const [selectedCard, setSelectedCard] = useState(null);
 
   const handleCardClick = (index) => {
@@ -29,11 +29,11 @@ const OnboardingPage2 = ({ onNext,onBack }) => {
   const navigate = useNavigate();
 const handleBack =() => {
   
-  navigate('/onboarding1');
+  navigate('/onboarding3');
 }
   const handleContinue = () => {
     onNext();
-    navigate('/onboarding3');
+    navigate('/home');
   };
   const cardData = [
     { label: 'Learn new skills', icon:<LuBrainCircuit />, title: 'Mastering New Skills for Personal and Professional Growth' },
@@ -138,10 +138,10 @@ const handleBack =() => {
       </div>
       <div className="onboarding-right right-section">
         {/* <Globe /> */}
-        <img src={rightcarcoot} className="onboarding2-right-cartoon" />
+        <img src={chatai} className="onboarding2-right-cartoon" />
       </div>
     </div>
   );
 };
 
-export default OnboardingPage2;
+export default OnboardingPage4;

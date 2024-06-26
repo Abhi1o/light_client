@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Wallet, HDNodeWallet, Mnemonic } from "ethers";
 import CryptoJS from "crypto-js";
-import "./OnboardingPage3.scss";
+import "./OnboardingPage2.scss";
 import Encryption from "../../Assets/Image/Encryption.gif";
 import { Link, useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
@@ -23,14 +23,12 @@ const CreateWallet = ({ onNext }) => {
 
   const handleContinue = () => {
     onNext();
-    navigate("/home");
+    navigate("/onboarding3");
   };
 
   useEffect(() => {
     const storedPrivateKey = localStorage.getItem("encryptedPrivateKey");
-    console.log("isOnboarding",isOnboarding);
     setIsOnboarding(!storedPrivateKey);
-    console.log("isOnboarding",isOnboarding);
   }, []);
 
   const generateWallet = () => {
@@ -46,18 +44,24 @@ const CreateWallet = ({ onNext }) => {
         typeof mnemonic,
         toString(mnemonic)
       );
+      
       const mnemonicInstance = Mnemonic.fromPhrase(mnemonic);
       const firstAccount = HDNodeWallet.fromMnemonic(
         mnemonicInstance,
         `m/44'/60'/0'/0/0`
       );
+      console.log("encryptedPrivate");
+      console.log(firstAccount.privateKey);
+      console.log(firstAccount.privateKey.length);
+      console.log(typeof firstAccount.privateKey);
+      console.log(firstAccount.publicKey);
+      console.log("end");
       // const wallet = HDNodeWallet.fromMnemonic(mnemonic);
       console.log("after wallet encryption");
       const encrypted = CryptoJS.AES.encrypt(
         firstAccount.privateKey,
         password
       ).toString();
-      console.log("after encryption");
       setEncryptedPrivateKey(encrypted);
       localStorage.setItem("username", name);
       localStorage.setItem("encryptedPrivateKey", encrypted);
@@ -146,24 +150,13 @@ const CreateWallet = ({ onNext }) => {
               unparalleled financial insights. Ready to revolutionize your
               financial journey?
             </p>
-            <button
+            {/* <button
               className="create-wallet-primary-btn"
               onClick={() => handleNext(1)}
             >
               Let’s embark on your financial adventure!
-            </button>
-          </div>
-        );
-      case 1:
-        return (
-          <div className="create-wallet-card-content">
-            <h2>Welcome to Wallet Buddy, your Personal AI Finance Manager!</h2>
-            <p>
-              Experience the future of financial management with Wallet Buddy.
-              Our interactive assistant is here to simplify your transactions
-              and make your financial life a breeze.
-            </p>
-            <button
+            </button> */}
+             <button
               className="create-wallet-primary-btn"
               onClick={() => handleNext(2)}
             >
@@ -175,6 +168,29 @@ const CreateWallet = ({ onNext }) => {
             >
               Import Existing Wallet
             </button>
+          </div>
+        );
+      case 1:
+        return (
+          <div className="create-wallet-card-content">
+            <h2>Welcome to Executer AI, your Personal AI Finance Manager!</h2>
+            <p>
+              Experience the future of financial management with Wallet Buddy.
+              Our interactive assistant is here to simplify your transactions
+              and make your financial life a breeze.
+            </p>
+            {/* <button
+              className="create-wallet-primary-btn"
+              onClick={() => handleNext(2)}
+            >
+              Create New Wallet
+            </button>
+            <button
+              className="create-wallet-secondary-btn"
+              onClick={() => handleNext(3)}
+            >
+              Import Existing Wallet
+            </button> */}
           </div>
         );
       case 2:
@@ -194,12 +210,12 @@ const CreateWallet = ({ onNext }) => {
             >
               Create New Recovery Phrase
             </button>
-            <button
+            {/* <button
               className="create-wallet-secondary-btn"
               onClick={() => handleNext(5)}
             >
               Import Existing Recovery Phrase
-            </button>
+            </button> */}
           </div>
         );
       case 3:
@@ -303,9 +319,9 @@ const CreateWallet = ({ onNext }) => {
             </p>
             <button
               className="create-wallet-primary-btn"
-              onClick={() => handleNext(7)}
+              onClick={() => handleNext(8)}
             >
-              Personalize
+              Set Up Profile
             </button>
           </div>
         );
@@ -358,7 +374,7 @@ const CreateWallet = ({ onNext }) => {
             <input
               type="text"
               className="form-control"
-              placeholder="Name"
+              placeholder="wallet Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -403,7 +419,7 @@ const CreateWallet = ({ onNext }) => {
   };
 
   return (
-    <div className="login-container">
+    <div className="createwallet-container">
       {step > 0 && (
         <button className="Create-wallet-back-button" onClick={handleBack}>
           <IoArrowBack />
@@ -413,8 +429,8 @@ const CreateWallet = ({ onNext }) => {
       <div className="overlay"></div>
     <h1>{step}</h1>
     
-        <div className="login-card">
-          <div className="login-card-content">
+        <div className="createwallet-card">
+          <div className="createwallet-card-content">
             <h1>{isOnboarding ? "Create Wallet" : "Welcome Back"}</h1>
             {renderCardContent()}
           </div>

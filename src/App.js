@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate,useNavigationType,
   useLocation, } from 'react-router-dom';
-import OnboardingPage1 from './pages/OnboardingPage1/OnboardingPage1';
-import OnboardingPage2 from './pages/OnboardingPage2/OnboardingPage2';
+import OnboardingPage3 from './pages/OnboardingPage1/OnboardingPage3';
+import OnboardingPage4 from './pages/OnboardingPage2/OnboardingPage4';
 // import OnboardingPage3 from './pages/OnboardingPage3/OnboardingPage3'; // Assuming CreateWallet is the updated OnboardingPage3
 import Sidebar from "./pages/Sidebar/Sidebar";
 import CreateWallet from './pages/CreateWallet/CreateWallet';
 import Home from "./pages/Dashboard/Dashboard";
 import TopNavbar from "./pages/TopNavbar/TopNavbar";
 import Chat from "./pages/ChatWindow/Chatapp";
-import Api from "./pages/ChatWindow/Api";
 import Settings from "./pages/Settings/Settings";
-import OnboardingPage3 from "./pages/OnboardingPage3/OnboardingPage3";
+import OnboardingPage2 from "./pages/OnboardingPage3/OnboardingPage2";
 
 
 import './App.css';
-import LandingPage from './pages/LandingPage/LandingPage';
+import LandingPage from './pages/LandingPage/LandingPage1';
+import Login from './pages/Login/Login';
+import ProfilePage from './pages/Profilepage/ProfilePage';
 
 const App = () => {
 
@@ -74,7 +75,7 @@ const action = useNavigationType();
         const nextStep = prevStep + 1;
         return nextStep;
       } else {
-        completeOnboarding();
+        // completeOnboarding();
         return prevStep;
       }
     });
@@ -87,9 +88,10 @@ const action = useNavigationType();
         
           <Route path="/" element={<Navigate to={`/onboarding${onboardingStep}`} />} />
           <Route path="/onboarding1" element={<LandingPage onNext={handleNextStep} />} />
-          <Route path="/onboarding2" element={<OnboardingPage3 onNext={handleNextStep}/>} />
-          <Route path="/onboarding2" element={<OnboardingPage1 onNext={handleNextStep} />} />
-          <Route path="/onboarding3" element={<OnboardingPage2 onNext={completeOnboarding}  />} />
+          <Route path="/onboarding2" element={<OnboardingPage2 onNext={handleNextStep}/>} />
+          <Route path="/onboarding3" element={<OnboardingPage3 onNext={handleNextStep} />} />
+          <Route path="/onboarding4" element={<OnboardingPage4 onNext={completeOnboarding}  />} />
+          <Route path='/login'element={<Login onNext={completeOnboarding}/>}/>
           {/* <Route path="/onboarding3" element={<OnboardingPage3 onNext={handleNextStep} />} /> */}
           {/* <Route path="/createwallet" element={<CreateWallet onNext={completeOnboarding}/>} /> */}
           <Route path="/home" element={<Navigate to={`/onboarding${onboardingStep}`} />} />
@@ -98,7 +100,7 @@ const action = useNavigationType();
       )}
       {isOnboardingComplete && (
         <>
-          <Route path="/pin" element={<OnboardingPage3 onNext={completeOnboarding} />} />
+          <Route path="/pin" element={<OnboardingPage2 onNext={completeOnboarding} />} />
           <Route path="*" element={<MainApp />} />
         </>
       )}
@@ -127,7 +129,9 @@ const MainApp = () => {
             <Route path="/home" element={<Home />} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="/api" element={<Api />} />
+          
+            <Route path="/profile" element={<ProfilePage/>} />
+            
 
             <Route path="/" element={<Navigate to="/home" />} />
           </Routes>

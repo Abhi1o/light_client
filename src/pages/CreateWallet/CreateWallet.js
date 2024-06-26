@@ -25,6 +25,12 @@ const CreateWallet = ({ onNext }) => {
   const encryptPrivateKey = () => {
     if (mnemonic && password) {
       const wallet = HDNodeWallet.fromMnemonic(mnemonic);
+      console.log("encryptedPrivate");
+      console.log(wallet.privateKey);
+      console.log(wallet.privateKey.length);
+      console.log(typeof wallet.privateKey);
+      console.log(wallet.publicKey);
+      console.log("end");
       const encrypted = CryptoJS.AES.encrypt(wallet.privateKey, password).toString();
       setEncryptedPrivateKey(encrypted);
       localStorage.setItem('encryptedPrivateKey', encrypted);

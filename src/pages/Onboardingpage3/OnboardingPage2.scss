@@ -1,8 +1,8 @@
-$primary-color: #85b744;
+$primary-color: #a05bc0;
 $background-overlay: rgba(0, 0, 0, 0.2);
 $background-color: #fcfeff;
 $border-color: #d3d3d3;
-$text-color: #20241c;
+$text-color: #ffffff;
 $shadow-color: rgba(0, 0, 0, 0.1);
 $secondary-color: #e3e3e3;
 
@@ -19,7 +19,7 @@ $border-radius: 25px;
 @mixin button-style($bg-color) {
   background-color: $bg-color;
   color: $text-color;
-  border: 1px solid #85b744;
+  border: 1px solid #a244b7;
   border-radius: $border-radius;
   cursor: pointer;
   padding: 15px 20px;
@@ -40,10 +40,10 @@ $border-radius: 25px;
   font-weight: 700;
 }
 
-.login-container {
+.createwallet-container {
   position: relative;
   height: 100vh;
-  background-image: url("../../Assets/Image/createwallet.jpeg");
+  background-image: url("../../Assets/Image/oncreatewallertt.png");
   background-size: cover;
   background-position: center;
   @include flex-center;
@@ -58,12 +58,17 @@ $border-radius: 25px;
     background: $background-overlay;
   }
 
-  .login-card {
+  .createwallet-card {
     position: absolute;
     z-index: 1;
     width: 41%;
     padding: 0 20px;
-    background-color: white;
+    // background-color: white;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    // border-image: linear-gradient(135deg, #6D83F2, #C56DFC) 1;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(10px);
     border-radius: $border-radius;
     box-shadow: 0 4px 8px $shadow-color;
     text-align: center;
@@ -76,7 +81,7 @@ $border-radius: 25px;
     margin: 10px 0px 10px 50px;
     justify-content: center;
 
-    .login-card-content {
+    .createwallet-card-content {
       border: none !important;
       width: 70% !important;
       margin: 0 20px;
@@ -99,7 +104,7 @@ $border-radius: 25px;
 
         p {
           margin-bottom: 25px;
-          color: #666;
+          color: #e0e0e0;
           font-size: 15px;
         }
         .mnemonic-keys-container{
@@ -124,7 +129,7 @@ $border-radius: 25px;
         
         }
         .options-list h2 {
-          color: #4caf50;
+          color: #a24caf;
           
         }
         
@@ -149,7 +154,7 @@ $border-radius: 25px;
         
         .option-item h3 {
           margin: 0 0 5px 0;
-          color: #307c34;
+          color: #5e307c;
           font-weight: 600;
         }
         
@@ -161,7 +166,7 @@ $border-radius: 25px;
         .option-item input[type="checkbox"] {
           margin-right: 10px;
           transform: scale(1.5);
-          accent-color: #4caf50;
+          accent-color: #914caf;
         }
         
         .option-item label {
@@ -256,15 +261,24 @@ $border-radius: 25px;
           // margin: 10px 5px;
           @include button-style($primary-color);
           flex-shrink: 1;
+          // border-image: linear-gradient(135deg, #6D83F2, #C56DFC) 1;
+  // border-radius: 10px;
+  // background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
           &:hover {
-            background-color: #488300;
-            color: #fcfeff;
+            background-color: rgb(255, 255, 255);
+  box-shadow: 0 0 10px #6D83F2, 0 0 20px #C56DFC;
+            color: #532c95;
           }
         }
         .create-wallet-secondary-btn {
           background-color: transparent !important;
+          color: #cfaee5;
           &:hover {
-            background-color: #adf7b1;
+            background-color: #ffffff;
             color: $text-color;
           }
         }

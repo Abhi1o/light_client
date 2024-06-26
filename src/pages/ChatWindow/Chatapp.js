@@ -1,200 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Chatapp.scss";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { MdKeyboardArrowDown } from "react-icons/md";
+
 import { BiSend } from "react-icons/bi";
-import simplefubbg from "../../Assets/Image/simple-chat-bg.jpg";
-import axios from "axios";
+
 import atomSuccessImage from "../../Assets/Image/AtomSuccess1.jpg";
-const { DirectSecp256k1HdWallet } = require("@cosmjs/proto-signing");
-const {
-  assertIsBroadcastTxSuccess,
-  SigningStargateClient,
-} = require("@cosmjs/stargate");
-const {
-  Connection,
-  Keypair,
-  Transaction,
-  LAMPORTS_PER_SOL,
-  SystemProgram,
-  sendAndConfirmTransaction,
-} = require("@solana/web3.js");
-const { ethers } = require("ethers");
-const bip39 = require("bip39");
 
-// // Configuration for different blockchains
-// const chainConfigs = {
-//   cosmoshub: {
-//       rpcEndpoint: 'https://cosmos-rpc.quickapi.com:443',
-//       denom: 'uatom',
-//       prefix: 'cosmos',
-//   },
-//   osmosis: {
-//       rpcEndpoint: 'https://rpc-osmosis.blockapsis.com',
-//       denom: 'uosmo',
-//       prefix: 'osmo',
-//   },
-//   akash: {
-//       rpcEndpoint: 'https://rpc.akash.forbole.com',
-//       denom: 'uakt',
-//       prefix: 'akash',
-//   },
-//   solana: {
-//       rpcEndpoint: 'https://api.mainnet-beta.solana.com',
-//       denom: 'sol',
-//   },
-//   ethereum: {
-//       rpcEndpoint: 'https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID',
-//   },
-// };
-
-// // Derive Solana Keypair from mnemonic
-// function getSolanaKeypairFromMnemonic(mnemonic) {
-//   const seed = bip39.mnemonicToSeedSync(mnemonic).slice(0, 32);
-//   return Keypair.fromSeed(seed);
-// }
-
-// // Derive Ethereum Wallet from mnemonic
-// function getEthereumWalletFromMnemonic(mnemonic) {
-//   return ethers.Wallet.fromMnemonic(mnemonic);
-// }
-
-// // Execute transaction on the specified blockchain
-// async function executeTransaction(chainName, transactionType, mnemonic, params) {
-//   if (chainName === 'solana') {
-//       return executeSolanaTransaction(transactionType, mnemonic, params);
-//   } else if (chainName === 'ethereum') {
-//       return executeEthereumTransaction(transactionType, mnemonic, params);
-//   } else {
-//       return executeCosmosTransaction(chainName, transactionType, mnemonic, params);
-//   }
-// }
-
-// // Execute Cosmos transaction
-// async function executeCosmosTransaction(chainName, transactionType, mnemonic, params) {
-//   const chainConfig = chainConfigs[chainName];
-
-//   if (!chainConfig) {
-//       throw new Error(`Unsupported chain: ${chainName}`);
-//   }
-//   console.log("before", chainConfig.prefix);
-//   const wallet = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, { prefix: chainConfig.prefix });
-//   console.log("after", wallet);
-//   console.log("after1")
-//   const [firstAccount] = await wallet.getAccounts();
-//   console.log("after2")
-//   const client = await SigningStargateClient.connectWithSigner(chainConfig.rpcEndpoint, wallet);
-//   console.log("after3")
-//   const fee = {
-//       amount: [{ denom: chainConfig.denom, amount: '5000' }],
-//       gas: '200000',
-//   };
-
-//   let result;
-
-//   switch (transactionType) {
-//       case 'send':
-//         console.log("before")
-//           const sendAmount = { denom: chainConfig.denom, amount: params.amount };
-//           result = await client.sendTokens(firstAccount.address, params.validatorAddress, [sendAmount], fee, 'Sending tokens');
-//           console.log("after")
-//           break;
-//       case 'ibcTransfer':
-//           const transferAmount = { denom: chainConfig.denom, amount: params.amount };
-//           const channel = { sourcePort: 'transfer', sourceChannel: 'channel-0' };
-//           const timeoutHeight = { revisionNumber: 1, revisionHeight: 12345678 };
-//           result = await client.sendIbcTokens(firstAccount.address, params.validatorAddress, transferAmount, channel, timeoutHeight, fee, 'IBC transfer');
-//           break;
-//       case 'delegate':
-//           const delegateAmount = { denom: chainConfig.denom, amount: params.amount };
-//           result = await client.delegateTokens(firstAccount.address, params.validatorAddress, delegateAmount, fee, 'Delegating tokens');
-//           break;
-//       case 'undelegate':
-//           const undelegateAmount = { denom: chainConfig.denom, amount: params.amount };
-//           result = await client.undelegateTokens(firstAccount.address, params.validatorAddress, undelegateAmount, fee, 'Undelegating tokens');
-//           break;
-//       case 'redelegate':
-//           const redelegateAmount = { denom: chainConfig.denom, amount: params.amount };
-//           result = await client.redelegateTokens(firstAccount.address, params.srcValidatorAddress, params.dstValidatorAddress, redelegateAmount, fee, 'Redelegating tokens');
-//           break;
-//       case 'submitProposal':
-//           const proposalMsg = {
-//               typeUrl: '/cosmos.gov.v1beta1.MsgSubmitProposal',
-//               value: {
-//                   content: {
-//                       typeUrl: '/cosmos.gov.v1beta1.TextProposal',
-//                       value: { title: params.title, description: params.description },
-//                   },
-//                   initialDeposit: [{ denom: chainConfig.denom, amount: params.deposit }],
-//                   proposer: firstAccount.address,
-//               },
-//           };
-//           result = await client.signAndBroadcast(firstAccount.address, [proposalMsg], fee, 'Submitting proposal');
-//           break;
-//       case 'vote':
-//           const voteMsg = {
-//               typeUrl: '/cosmos.gov.v1beta1.MsgVote',
-//               value: { proposalId: params.proposalId, voter: firstAccount.address, option: params.option },
-//           };
-//           result = await client.signAndBroadcast(firstAccount.address, [voteMsg], fee, 'Voting on proposal');
-//           break;
-//       default:
-//           throw new Error('Unsupported transaction type');
-//   }
-
-//   assertIsBroadcastTxSuccess(result);
-//   console.log('Transaction successful with hash:', result.transactionHash);
-// }
-
-// // Execute Solana transaction
-// async function executeSolanaTransaction(transactionType, mnemonic, params) {
-//   const connection = new Connection(chainConfigs.solana.rpcEndpoint, 'confirmed');
-//   const keypair = getSolanaKeypairFromMnemonic(mnemonic);
-
-//   let transaction = new Transaction();
-//   let result;
-
-//   switch (transactionType) {
-//       case 'send':
-//           const sendAmount = parseInt(params.amount, 10) * LAMPORTS_PER_SOL;
-//           transaction.add(SystemProgram.transfer({
-//               fromPubkey: keypair.publicKey,
-//               toPubkey: params.validatorAddress,
-//               lamports: sendAmount,
-//           }));
-//           break;
-//       default:
-//           throw new Error('Unsupported transaction type');
-//   }
-
-//   result = await sendAndConfirmTransaction(connection, transaction, [keypair]);
-//   console.log('Transaction successful with hash:', result);
-// }
-
-// // Execute Ethereum transaction
-// async function executeEthereumTransaction(transactionType, mnemonic, params) {
-//   const provider = new ethers.providers.JsonRpcProvider(chainConfigs.ethereum.rpcEndpoint);
-//   const wallet = getEthereumWalletFromMnemonic(mnemonic).connect(provider);
-
-//   let result;
-
-//   switch (transactionType) {
-//       case 'send':
-//           const sendAmount = ethers.utils.parseEther(params.amount);
-//           const tx = {
-//               to: params.validatorAddress,
-//               value: sendAmount,
-//               gasLimit: 21000,
-//               gasPrice: await provider.getGasPrice(),
-//           };
-//           result = await wallet.sendTransaction(tx);
-//           break;
-//       default:
-//           throw new Error('Unsupported transaction type');
-//   }
-
-//   console.log('Transaction successful with hash:', result.hash);
-// }
+import chainConfig from './config';
+import { DirectSecp256k1HdWallet } from '@cosmjs/proto-signing';
+import { SigningStargateClient } from "@cosmjs/stargate";
 
 const Sidebar = ({
   chats,
@@ -247,36 +60,314 @@ const Sidebar = ({
   );
 };
 
-//
+const testing = async (input, mnemonic, chainConfig) => {
+    function extractFunctionFromResponse(response) {
+      const generatedText = response[0].generated_text;
+    
+      // Check if the generated text contains an async function
+      const asyncKeywordIndex = generatedText.indexOf('async');
+      const assistantKeywordIndex = generatedText.indexOf('<assistant>:');
+    
+      if (asyncKeywordIndex !== -1 && asyncKeywordIndex > assistantKeywordIndex) {
+        // Extract the function code starting from 'async' to 'return result.transactionHash;'
+        const functionStart = generatedText.indexOf('async', assistantKeywordIndex);
+        const functionEnd = generatedText.indexOf('return result.transactionHash;') + 'return result.transactionHash;'.length;
+    
+        const functionCode = generatedText.substring(functionStart, functionEnd) + '\n}';
 
-const testing = async (chainName, transactionType, mnemonic, params) => {
-  try {
-    const response = await axios.post("http://localhost:5000/api/data", {
-      chainName,
-      transactionType,
-      mnemonic,
-      params,
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error executing transaction:", error);
-    throw error;
-  }
-};
+        const dynamicFunction = eval(`(${functionCode})`);
+      
+        // Define the CORS proxy URL (change to your local proxy URL)
+        const proxyUrl = 'http://localhost:8080/';
+        console.log("after dynamic function");
+    
+        // Wrap the original function to use the CORS proxy
+        const proxyFunction = async (DirectSecp256k1HdWallet, SigningStargateClient, mnemonic, chainConfig) => {
+          console.log("inside proxy function"); 
+          const originalFetch = window.fetch;
+          window.fetch = (url, options) => {
+            if (url.startsWith('https://cosmos-rpc.quickapi.com')) {
+              url = proxyUrl + url;
+            }
+            return originalFetch(url, options);
+          };
+          try {
+            console.log('inside try proxy function');
+            return await dynamicFunction(DirectSecp256k1HdWallet, SigningStargateClient, mnemonic, chainConfig);
+          } finally {
+            window.fetch = originalFetch;
+          }
+        };
+    
+        // Execute the proxy function with the necessary parameters
+        
+        const result = proxyFunction(DirectSecp256k1HdWallet, SigningStargateClient, mnemonic, chainConfig);
+        
+        return result
+        // Return the extracted function code
+        
+      }
+    
+      // If no async function is found, return the original generated text
+      return generatedText;
+    }
+    const url = "https://88db-18-213-200-192.ngrok-free.app/predict";
+    const payload = {
+      inputs: `<human>:${input} <assistant>:`
+    };
+    
+    const headers = {
+      "Content-Type": "application/json"
+    };
+    
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(payload)
+      });
+      const data = await response.json();
+  
+      console.log("This is the output in json formate", data);
+      const extractedFunction = await extractFunctionFromResponse(data);
+      console.log("extract function", extractedFunction);
+      // Create a dynamic function from the function body
+      console.log("before dynamic function");
+      return extractedFunction;
+  
+    } catch (error) {
+      console.error("Error:", error);
+      return null;
+    }
+  };
+  
+
+// const testing = async (input, mnemonic, chainConfig) => {
+//   function extractFunctionFromResponse(response) {
+//     const generatedText = response[0].generated_text;
+  
+//     // Check if the generated text contains an async function
+//     const asyncKeywordIndex = generatedText.indexOf('async');
+//     const assistantKeywordIndex = generatedText.indexOf('<assistant>:');
+  
+//     if (asyncKeywordIndex !== -1 && asyncKeywordIndex > assistantKeywordIndex) {
+//       // Extract the function code starting from 'async' to 'return result.transactionHash;'
+//       const functionStart = generatedText.indexOf('async', assistantKeywordIndex);
+//       const functionEnd = generatedText.indexOf('return result.transactionHash;') + 'return result.transactionHash;'.length;
+  
+//       const functionCode = generatedText.substring(functionStart, functionEnd) + '\n}';
+  
+//       // Return the extracted function code
+//       return functionCode;
+//     }
+  
+//     // If no async function is found, return the original generated text
+//     return generatedText;
+//   }
+//   const url = "https://88db-18-213-200-192.ngrok-free.app/predict";
+//   const payload = {
+//     inputs: `<human>:${input} <assistant>:`
+//   };
+  
+//   const headers = {
+//     "Content-Type": "application/json"
+//   };
+  
+//   try {
+//     const response = await fetch(url, {
+//       method: "POST",
+//       headers: headers,
+//       body: JSON.stringify(payload)
+//     });
+//     const data = await response.json();
+
+//     console.log("This is the output in json formate", data);
+//     const extractedFunction = await extractFunctionFromResponse(data);
+//     console.log("extract function", extractedFunction);
+//     // Create a dynamic function from the function body
+//     console.log("before dynamic function");
+//     const dynamicFunction = await eval(`(${extractedFunction})`);
+    
+//     // Define the CORS proxy URL (change to your local proxy URL)
+//     const proxyUrl = 'http://localhost:8080/';
+//     console.log("after dynamic function");
+
+//     // Wrap the original function to use the CORS proxy
+//     const proxyFunction = async (DirectSecp256k1HdWallet, SigningStargateClient, mnemonic, chainConfig) => {
+//       console.log("inside proxy function"); 
+//       const originalFetch = window.fetch;
+//       window.fetch = (url, options) => {
+//         if (url.startsWith('https://cosmos-rpc.quickapi.com')) {
+//           url = proxyUrl + url;
+//         }
+//         return originalFetch(url, options);
+//       };
+//       try {
+//         console.log('inside try proxy function');
+//         return await dynamicFunction(DirectSecp256k1HdWallet, SigningStargateClient, mnemonic, chainConfig);
+//       } finally {
+//         window.fetch = originalFetch;
+//       }
+//     };
+
+//     // Execute the proxy function with the necessary parameters
+    
+//     const result = await proxyFunction(DirectSecp256k1HdWallet, SigningStargateClient, mnemonic, chainConfig);
+//     const result1 = result
+//     return result1
+
+//   } catch (error) {
+//     console.error("Error:", error);
+//     return null;
+//   }
+// };
+
+// const testing = async (mnemonic, chainConfig) => {
+//   try {
+//     const response = await axios.post("http://localhost:5000/send-tx");
+//     const functionBody = response.data;
+
+//     // Create a dynamic function from the function body
+//     const dynamicFunction = eval(`(${functionBody})`);
+
+//     // Define the CORS proxy URL (change to your local proxy URL)
+//     const proxyUrl = 'http://localhost:8080/';
+
+//     // Wrap the original function to use the CORS proxy
+//     const proxyFunction = async (DirectSecp256k1HdWallet, SigningStargateClient, mnemonic, chainConfig) => {
+//       const originalFetch = window.fetch;
+//       window.fetch = (url, options) => {
+//         if (url.startsWith('https://cosmos-rpc.quickapi.com')) {
+//           url = proxyUrl + url;
+//         }
+//         return originalFetch(url, options);
+//       };
+//       try {
+//         return await dynamicFunction(DirectSecp256k1HdWallet, SigningStargateClient, mnemonic, chainConfig);
+//       } finally {
+//         window.fetch = originalFetch;
+//       }
+//     };
+
+//     // Execute the proxy function with the necessary parameters
+    
+//     const result = await proxyFunction(DirectSecp256k1HdWallet, SigningStargateClient, mnemonic, chainConfig);
+//     const result1 = result
+//     return result1
+//   } 
+//   catch (error) {
+//     console.error("Error executing transaction:", error);
+//     throw error;
+//   }
+// };
+
+
+
+//
+// const testing = async (mnemonic, chainConfig) => {
+//   try {
+//     const response = await axios.post("http://localhost:5000/send-tx");
+// // console.log("beforeresponse1", response);
+
+//     const functionBody = response.data;
+//     // console.log("after addfunctionstring2",addFunctionString);
+    
+
+//     // const addFunction = new Function('mnemonic', 'chainConfig', addFunctionString);
+//     const dynamicFunction = eval(`(${functionBody})`);
+//     console.log("after addfunction3", dynamicFunction);
+
+//     // Execute the dynamic function
+//     const result = await dynamicFunction(DirectSecp256k1HdWallet, SigningStargateClient, mnemonic, chainConfig);
+//     // 
+//     console.log("result @@@@4",result);
+
+//     return result;
+//   } catch (error) {
+//     console.error("Error executing transaction:", error);
+//     throw error;
+//   }
+// };
+
 
 const ChatWindow = ({ chat }) => {
   const [copy, setCopy] = useState(false);
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
-  // const messagesEndRef = useRef(null);
+  const [loadingText, setLoadingText] = useState("Connecting to network...");
+  const messagesEndRef = useRef(null);
+
+  const loadingMessages = [
+    "Connecting to network...",
+    "Connected to Cosmos...",
+    "Verifying details...",
+    "Processing transaction...",
+    "Finalizing transaction...",
+    "Transaction in progress..."
+  ];
+
+
+  useEffect(() => {
+    if (loading) {
+      let currentIndex = 0;
+      const interval = setInterval(() => {
+        setLoadingText(loadingMessages[currentIndex]);
+        if (currentIndex < loadingMessages.length - 1) {
+          currentIndex++;
+        } else {
+          clearInterval(interval);
+        }
+      }, 2000);
+      return () => clearInterval(interval);
+    }
+  }, [loading,loadingMessages]);
+
+  // useEffect(() => {
+  //   if (loading) {
+  //     const interval = setInterval(() => {
+  //       setLoadingText(prevText => {
+  //         const currentIndex = loadingMessages.indexOf(prevText);
+  //         const nextIndex = (currentIndex + 1) % loadingMessages.length;
+  //         return loadingMessages[nextIndex];
+  //       });
+  //     }, 2000);
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [loading]);
+
+// chat api
+// const handletransaction = ()=>{
+//   const fetch = require('node-fetch');
+//   const url = "https://7f9a-38-147-83-19.ngrok-free.app/predict";
+//   const payload = {
+//     inputs: `<human> ${inputValue} <assistant>:`
+//   };
+  
+//   const headers = {
+//     "Content-Type": "application/json"
+//   };
+  
+//   fetch(url, {
+//     method: "POST",
+//     headers: headers,
+//     body: JSON.stringify(payload)
+//   })
+//     .then(response => response.json())
+//     .then(data => console.log(data))
+//     .catch(error => console.error("Error:", error));
+  
+// }
+
+  
+
   const handleHashCopy = (transactionHash) => {
     navigator.clipboard.writeText(transactionHash).then(
       () => {
         setCopy(true);
         setTimeout(() => {
           setCopy(false);
-        }, 2000);
+        }, 3000);
       },
       (err) => {
         console.error("Could not copy text: ", err);
@@ -294,17 +385,16 @@ const ChatWindow = ({ chat }) => {
     blockchainImage,
     blockchainName,
     amount,
-    validatorAddress,
+    recipient,
     transactionHash,
   }) => (
     <div className="transaction-card">
       <img src={blockchainImage} alt={blockchainName} />
       <div className="transaction-details">
-        <span>successfully send</span>
-        <h3> {amount} Atom </h3>
-        <p> to {validatorAddress.slice(0, 16) + "..."}</p>
-        {/* <p> {blockchainName}</p> */}
-
+        <span>successfully sent</span>
+        <h3>{amount} Atom</h3>
+        <p>to {recipient ? recipient.slice(0, 16) + "..." : "Unknown"}</p>
+        {/* <p>{blockchainName}</p> */}
         {/* <p><strong>Transaction Hash:</strong> {transactionHash}</p> */}
         <button onClick={() => handleHashCopy(transactionHash)}>
           {copy ? "Copied ✅" : "Copy Hash"}
@@ -312,13 +402,14 @@ const ChatWindow = ({ chat }) => {
       </div>
     </div>
   );
+  
   const handleSend = async () => {
-    const inputParts = inputValue.split(" ");
-    const isTransaction = inputParts.length === 4;
-    const [chainName, transactionType, amount, validatorAddress] = inputParts;
-    const params = { validatorAddress, amount };
-    const mnemonic = ""; // Replace with actual mnemonic
-
+    // const inputParts = inputValue.split(" ");
+    const isTransaction = true;
+    // const [chainName, transactionType, amount, recipient] = inputParts;
+    // const params = { recipient, amount };
+    const mnemonic = "sign public soldier jewel flavor bring you hand inject soft trust lens"; // Replace with actual mnemonic
+  
     if (inputValue.trim()) {
       const userMessage = {
         text: inputValue,
@@ -327,31 +418,29 @@ const ChatWindow = ({ chat }) => {
       };
       setMessages([...messages, userMessage]);
       setInputValue("");
-
+  
       const loadingMessage = {
+        type: "loading",
         text: "Loading...",
         sender: "bot",
         timestamp: new Date(),
       };
       setMessages((prevMessages) => [...prevMessages, loadingMessage]);
-
+  
       setLoading(true);
-
+  
       try {
         if (isTransaction) {
-          const transactionHash = await testing(
-            chainName,
-            transactionType,
-            mnemonic,
-            params
-          );
+          const transactionFunction = await testing(inputValue, mnemonic, chainConfig);
+          console.log(transactionFunction);
+          const transactionHash = await transactionFunction
           const botReply = {
             type: "transaction",
-            blockchainImage: TokenImage[chainName], // Set the appropriate image path
-            blockchainName: chainName,
-            amount,
-            validatorAddress: params.validatorAddress,
-            transactionHash: transactionHash.hash,
+            blockchainImage: TokenImage.cosmoshub, // Set the appropriate image path
+            blockchainName: "cosmoshub",
+            amount: "0.01", // Replace with the actual amount
+            recipient: "recipient_address", // Replace with the actual recipient
+            transactionHash: transactionHash,
           };
           setMessages((prevMessages) => [
             ...prevMessages.slice(0, -1),
@@ -377,65 +466,76 @@ const ChatWindow = ({ chat }) => {
         };
         setMessages((prevMessages) => [...prevMessages.slice(0, -1), botReply]);
       }
-
+  
       setLoading(false);
     }
   };
-  // useEffect(() => {
-  //   if (messagesEndRef.current) {
-  //     messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-  //   }
-  // }, [messages]);
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   return (
     <div className="chat-container">
-      <div className="overlay"></div>
-      <i className="bx bx-dots-horizontal-rounded chat-container-menu"></i>
-      <div className="chat-messages">
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            className={`chat-message ${
-              message.sender === "user" ? "user-message" : "bot-message"
-            }`}
-          >
-            {message.type === "transaction" ? (
-              <TransactionCard
-                blockchainImage={message.blockchainImage}
-                blockchainName={message.blockchainName}
-                amount={message.amount}
-                validatorAddress={message.validatorAddress}
-                transactionHash={message.transactionHash}
-              />
-            ) : (
-              <>
-                <div className="message-text">{message.text}</div>
-                <div className="message-time">
-                  {message.timestamp.toLocaleTimeString()}
-                </div>
-              </>
-            )}
-          </div>
-        ))}
-        {/* <div ref={messagesEndRef} /> */}
-      </div>
-      <div className="chat-input-container">
-        <input
-          type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Type your message or transaction (chainName transactionType amount validatorAddress)"
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              handleSend();
-            }
-          }}
-        />
-        <i onClick={handleSend}>
-          <BiSend fontSize="20px" />
-        </i>
-      </div>
+    <div className="overlay"></div>
+    <i className="bx bx-dots-horizontal-rounded chat-container-menu"></i>
+    <div className="chat-messages">
+      {messages.map((message, index) => (
+        <div
+          key={index}
+          className={`chat-message ${
+            message.sender === "user" ? "user-message" : "bot-message"
+          }`}
+        >
+          {message.type === "transaction" ? (
+            <TransactionCard
+              blockchainImage={message.blockchainImage}
+              blockchainName={message.blockchainName}
+              amount={message.amount}
+              recipient={message.recipient}
+              transactionHash={message.transactionHash}
+            />
+          ) : message.type === "loading" ? (
+            <div className="loading-message">
+              <div className="loading-circle"></div>
+              <div className="loading-text">{loadingText}</div>
+            </div>
+          ) :(
+            <>
+              <div className="message-text">{message.text}</div>
+              <div className="message-time">
+                {message.timestamp.toLocaleTimeString()}
+              </div>
+            </>
+          )}
+        </div>
+      ))}
+      <div ref={messagesEndRef} />
     </div>
+    <div className="chat-input-container">
+      <input
+        type="text"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        placeholder="Type your message or transaction (chainName transactionType amount recipient)"
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+            handleSend();
+          }
+        }}
+      />
+      <i onClick={handleSend}>
+        <BiSend fontSize="20px" />
+      </i>
+    </div>
+    {/* {loading && (
+        <div className="loading-overlay">
+          <div className="loading-circle"></div>
+          <div className="loading-text">{loadingText}</div>
+        </div>
+      )} */}
+  </div>
   );
 };
 
@@ -536,7 +636,7 @@ export default Chatapp;
 //   it('should not add a message when an empty message is sent', () => {
 //     const { getByPlaceholderText, queryByText } = render(<ChatWindow />);
 
-//     const input = getByPlaceholderText("Type your message or transaction (chainName transactionType amount validatorAddress)");
+//     const input = getByPlaceholderText("Type your message or transaction (chainName transactionType amount recipient)");
 //     fireEvent.change(input, { target: { value: "" } });
 //     fireEvent.keyPress(input, { key: "Enter", code: "Enter", charCode: 13 });
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Globe from '../../magicui/globe';  // Ensure the path is correct
-import './OnboardingPage1.scss';  // Import the CSS file
+import './OnboardingPage3.scss';  // Import the CSS file
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -11,6 +11,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { MdDesignServices } from "react-icons/md";
 // import rightcarcoot from "../../Assets/Image/2150248728.jpg"
 import workcartoon from "../../Assets/Image/workcartoon.webp";
+import chatbot from "../../Assets/Image/chatbot.jpg";
 // import required modules
 import {
   Pagination,
@@ -19,7 +20,7 @@ import {
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-const OnboardingPage1 = ({ onNext }) => {
+const OnboardingPage3 = ({ onNext }) => {
   const [selectedCard, setSelectedCard] = useState(null);
 
   const handleCardClick = (index) => {
@@ -29,7 +30,7 @@ const OnboardingPage1 = ({ onNext }) => {
 
   const handleContinue = () => {
     onNext();
-    navigate('/onboarding2');
+    navigate('/onboarding4');
   };
 
   const cardData = [
@@ -134,10 +135,10 @@ const OnboardingPage1 = ({ onNext }) => {
       </div>
       <div className="onboarding1-right right-section">
         {/* <Globe /> */}
-        <img src={workcartoon} className="onboarding1-right-cartoon" />
+        <img src={chatbot} className="onboarding1-right-cartoon" />
       </div>
     </div>
   );
 };
 
-export default OnboardingPage1;
+export default OnboardingPage3;
